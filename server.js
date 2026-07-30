@@ -1156,6 +1156,1800 @@ app.get('/infrastructure/:page', (req, res) => {
   });
 });
 
+const activitiesPages = {
+  'gallery': {
+    title: 'Gallery',
+    content: `
+      <div class="gallery-card-grid">
+        <a href="/activities/gallery/labs" class="gallery-card">
+          <img src="/assets/gallery_lab.png" alt="Labs" class="gallery-card-img">
+          <div class="gallery-card-label">Labs</div>
+        </a>
+        <a href="/activities/gallery/canteen" class="gallery-card">
+          <img src="/assets/gallery_lab.png" alt="Canteen" class="gallery-card-img">
+          <div class="gallery-card-label">Canteen</div>
+        </a>
+        <a href="/activities/gallery/hostels" class="gallery-card">
+          <img src="/assets/gallery_lab.png" alt="Hostels" class="gallery-card-img">
+          <div class="gallery-card-label">Hostels</div>
+        </a>
+        <a href="/activities/gallery/classrooms" class="gallery-card">
+          <img src="/assets/gallery_lab.png" alt="Class Rooms" class="gallery-card-img">
+          <div class="gallery-card-label">Class Rooms</div>
+        </a>
+      </div>
+    `
+  },
+  'videos': {
+    title: 'Videos',
+    content: `
+      <div class="video-card-grid">
+        <div class="video-card">
+          <div class="video-embed-wrapper">
+            <iframe
+              src="https://www.youtube.com/embed/YOUR_VIDEO_ID"
+              title="About Sri Sivani College of Pharmacy"
+              frameborder="0"
+              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+              allowfullscreen
+              class="video-embed-iframe">
+            </iframe>
+          </div>
+          <div class="video-card-title">ABOUT SRI SIVANI COLLEGE OF PHARMACY</div>
+        </div>
+      </div>
+    `
+  },
+  'nss': { title: 'NSS', content: `<h3 class="vision-heading">Under Process</h3>` }
+};
+
+app.get('/activities/:page', (req, res) => {
+  const page = activitiesPages[req.params.page];
+  if (!page) {
+    return res.status(404).send('Page not found');
+  }
+  res.render('about-page', {
+    pageTitle: page.title,
+    content: page.content,
+    parentLabel: 'Activities',
+    parentUrl: '#'
+  });
+});
+
+const galleryDetailPages = {
+  'labs': {
+    title: 'Labs',
+    images: ['/assets/gallery_lab.svg']
+  },
+  'canteen': {
+    title: 'Canteen',
+    images: ['/assets/gallery_canteen.svg']
+  },
+  'hostels': {
+    title: 'Hostels',
+    images: ['/assets/gallery_hostel.svg']
+  },
+  'classrooms': {
+    title: 'Class Rooms',
+    images: ['/assets/gallery_classroom.svg']
+  }
+};
+
+app.get('/activities/gallery/:page', (req, res) => {
+  const page = galleryDetailPages[req.params.page];
+  if (!page) {
+    return res.status(404).send('Page not found');
+  }
+  const imagesHtml = page.images.map(src => `
+    <div class="gallery-detail-item">
+      <img src="${src}" alt="${page.title}" class="gallery-detail-img">
+    </div>
+  `).join('');
+
+  res.render('about-page', {
+    pageTitle: page.title,
+    content: `<div class="gallery-detail-grid">${imagesHtml}</div>`,
+    parentLabel: 'Gallery',
+    parentUrl: '/activities/gallery'
+  });
+});
+
+const naacPages = {
+  'iiqa': {
+    title: 'IIQA',
+    content: `
+      <div class="iiqa-row iiqa-header-row">
+        <div class="iiqa-name">SRI SIVANI COLLEGE OF PHARMACY</div>
+      </div>
+      <div class="iiqa-row">
+        <div class="iiqa-name">IIQA LATEST</div>
+        <a href="/assets/pdfs/iiqa-latest.pdf" target="_blank" class="iiqa-view-btn">
+          <i class="bi bi-file-earmark-text"></i>
+        </a>
+      </div>
+    `
+  },
+  'ssr-criteria-1': {
+    title: 'SSR Criteria-1',
+    parentLabel: 'SSR',
+    content: `
+      <div class="ssr-table-wrapper">
+        <table class="ssr-table">
+          <thead>
+            <tr>
+              <th>S.No</th>
+              <th>Metric No</th>
+              <th>File No</th>
+              <th>File Description</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td rowspan="5">1</td>
+              <td rowspan="5">1.2.1</td>
+              <td class="ssr-file-no">1.2.1(1)</td>
+              <td><a href="/assets/pdfs/ssr/1-2-1-1.pdf" target="_blank" class="ssr-file-link">Documents related to Add-on programs for A.Y 2022-23</a></td>
+            </tr>
+            <tr>
+              <td class="ssr-file-no">1.2.1(2)</td>
+              <td><a href="/assets/pdfs/ssr/1-2-1-2.pdf" target="_blank" class="ssr-file-link">Documents related to Add-on programs for A.Y 2021-22</a></td>
+            </tr>
+            <tr>
+              <td class="ssr-file-no">1.2.1(3)</td>
+              <td><a href="/assets/pdfs/ssr/1-2-1-3.pdf" target="_blank" class="ssr-file-link">Documents related to Add-on programs for A.Y 2020-21</a></td>
+            </tr>
+            <tr>
+              <td class="ssr-file-no">1.2.1(4)</td>
+              <td><a href="/assets/pdfs/ssr/1-2-1-4.pdf" target="_blank" class="ssr-file-link">Documents related to Add-on programs for A.Y 2019-20</a></td>
+            </tr>
+            <tr>
+              <td class="ssr-file-no">1.2.1(5)</td>
+              <td><a href="/assets/pdfs/ssr/1-2-1-5.pdf" target="_blank" class="ssr-file-link">Documents related to Add-on programs for A.Y 2018-19</a></td>
+            </tr>
+
+            <tr>
+              <td rowspan="5">2</td>
+              <td rowspan="5">1.2.2</td>
+              <td class="ssr-file-no">1.2.2(1)</td>
+              <td class="ssr-file-plain">List of students enrolled in certificate program offered during A.Y-2022-23</td>
+            </tr>
+            <tr>
+              <td class="ssr-file-no">1.2.2(2)</td>
+              <td class="ssr-file-plain">List of students enrolled in certificate program offered during A.Y-2021-22</td>
+            </tr>
+            <tr>
+              <td class="ssr-file-no">1.2.2(3)</td>
+              <td class="ssr-file-plain">List of students enrolled in certificate program offered during A.Y-2020-21</td>
+            </tr>
+            <tr>
+              <td class="ssr-file-no">1.2.2(4)</td>
+              <td class="ssr-file-plain">List of students enrolled in certificate program offered during A.Y-2019-20</td>
+            </tr>
+            <tr>
+              <td class="ssr-file-no">1.2.2(5)</td>
+              <td class="ssr-file-plain">List of students enrolled in certificate program offered during A.Y-2018-19</td>
+            </tr>
+
+            <tr>
+              <td rowspan="4">3</td>
+              <td rowspan="4">1.3.2</td>
+              <td class="ssr-file-no">1.3.2(1)</td>
+              <td><a href="/assets/pdfs/ssr/1-3-2-1.pdf" target="_blank" class="ssr-file-link">List of Students</a></td>
+            </tr>
+            <tr>
+              <td class="ssr-file-no">1.3.2(2)</td>
+              <td><a href="/assets/pdfs/ssr/1-3-2-2.pdf" target="_blank" class="ssr-file-link">Project work</a></td>
+            </tr>
+            <tr>
+              <td class="ssr-file-no">1.3.2(3)</td>
+              <td><a href="/assets/pdfs/ssr/1-3-2-3.pdf" target="_blank" class="ssr-file-link">Industrial visit</a></td>
+            </tr>
+            <tr>
+              <td class="ssr-file-no">1.3.2(4)</td>
+              <td><a href="/assets/pdfs/ssr/1-3-2-4.pdf" target="_blank" class="ssr-file-link">Internships</a></td>
+            </tr>
+
+            <tr>
+              <td rowspan="5">4</td>
+              <td rowspan="5">1.4.1</td>
+              <td class="ssr-file-no">1.4.1(1)</td>
+              <td class="ssr-file-plain">Sample filled feedback forms</td>
+            </tr>
+            <tr>
+              <td class="ssr-file-no">1.4.1(2)</td>
+              <td class="ssr-file-plain">Feedback analysis</td>
+            </tr>
+            <tr>
+              <td class="ssr-file-no">1.4.1(3)</td>
+              <td class="ssr-file-plain">Action taken report</td>
+            </tr>
+            <tr>
+              <td class="ssr-file-no">1.4.1(4)</td>
+              <td class="ssr-file-plain">Communication with Affiliated University</td>
+            </tr>
+            <tr>
+              <td class="ssr-file-no">1.4.1(5)</td>
+              <td class="ssr-file-plain">Institutional weblink</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    `
+  },
+  'ssr-criteria-2': {
+    title: 'SSR Criteria-2',
+    parentLabel: 'SSR',
+    content: `
+      <div class="ssr-table-wrapper">
+        <table class="ssr-table">
+          <thead>
+            <tr>
+              <th>S.No</th>
+              <th>Metric No</th>
+              <th>File No</th>
+              <th>File Description</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td rowspan="6">1</td>
+              <td rowspan="6">2.1.1</td>
+              <td class="ssr-file-no">2.1.1(1)</td>
+              <td><a href="/assets/pdfs/ssr/2-1-1-1.pdf" target="_blank" class="ssr-file-link">AICTE approvals for last five years</a></td>
+            </tr>
+            <tr>
+              <td class="ssr-file-no">2.1.1(2)</td>
+              <td><a href="/assets/pdfs/ssr/2-1-1-2.pdf" target="_blank" class="ssr-file-link">List of Enrolled Students in A.Y 2022-23</a></td>
+            </tr>
+            <tr>
+              <td class="ssr-file-no">2.1.1(3)</td>
+              <td><a href="/assets/pdfs/ssr/2-1-1-3.pdf" target="_blank" class="ssr-file-link">List of Enrolled Students in A.Y 2021-22</a></td>
+            </tr>
+            <tr>
+              <td class="ssr-file-no">2.1.1(4)</td>
+              <td><a href="/assets/pdfs/ssr/2-1-1-4.pdf" target="_blank" class="ssr-file-link">List of Enrolled Students in A.Y 2020-21</a></td>
+            </tr>
+            <tr>
+              <td class="ssr-file-no">2.1.1(5)</td>
+              <td><a href="/assets/pdfs/ssr/2-1-1-5.pdf" target="_blank" class="ssr-file-link">List of Enrolled Students in A.Y 2019-20</a></td>
+            </tr>
+            <tr>
+              <td class="ssr-file-no">2.1.1(6)</td>
+              <td><a href="/assets/pdfs/ssr/2-1-1-6.pdf" target="_blank" class="ssr-file-link">List of Enrolled Students in A.Y 2018-19</a></td>
+            </tr>
+
+            <tr>
+              <td rowspan="7">2</td>
+              <td rowspan="7">2.1.2</td>
+              <td class="ssr-file-no">2.1.2(1)</td>
+              <td class="ssr-file-plain">G.O. related to reservation policy</td>
+            </tr>
+            <tr>
+              <td class="ssr-file-no">2.1.2(2)</td>
+              <td class="ssr-file-plain">List of Enrolled Students against reserved category during A.Y 2022-23</td>
+            </tr>
+            <tr>
+              <td class="ssr-file-no">2.1.2(3)</td>
+              <td class="ssr-file-plain">List of Enrolled Students against reserved category during A.Y 2021-22</td>
+            </tr>
+            <tr>
+              <td class="ssr-file-no">2.1.2(4)</td>
+              <td class="ssr-file-plain">List of Enrolled Students against reserved category during A.Y 2020-21</td>
+            </tr>
+            <tr>
+              <td class="ssr-file-no">2.1.2(5)</td>
+              <td class="ssr-file-plain">List of Enrolled Students against reserved category during A.Y 2019-20</td>
+            </tr>
+            <tr>
+              <td class="ssr-file-no">2.1.2(6)</td>
+              <td class="ssr-file-plain">List of Enrolled Students against reserved category during A.Y 2018-19</td>
+            </tr>
+            <tr>
+              <td class="ssr-file-no">2.1.2(7)</td>
+              <td class="ssr-file-plain">Admission Extract</td>
+            </tr>
+
+            <tr>
+              <td rowspan="2">3</td>
+              <td rowspan="2">2.4.1</td>
+              <td class="ssr-file-no">2.4.1(1)</td>
+              <td><a href="/assets/pdfs/ssr/2-4-1-1.pdf" target="_blank" class="ssr-file-link">Sanctioned Letters</a></td>
+            </tr>
+            <tr>
+              <td class="ssr-file-no">2.4.1(2)</td>
+              <td><a href="/assets/pdfs/ssr/2-4-1-2.pdf" target="_blank" class="ssr-file-link">List of full time teachers for the assessment period-last five years</a></td>
+            </tr>
+
+            <tr>
+              <td rowspan="5">4</td>
+              <td rowspan="5">2.4.2</td>
+              <td class="ssr-file-no">2.4.2(1)</td>
+              <td class="ssr-file-plain">List of full time teachers with Ph. D. / SLET with their e-copies of Ph. D. / SLET in A.Y. 2022-23</td>
+            </tr>
+            <tr>
+              <td class="ssr-file-no">2.4.2(2)</td>
+              <td class="ssr-file-plain">List of full time teachers with Ph. D. / SLET with their e-copies of Ph. D. / SLET in A.Y. 2021-22</td>
+            </tr>
+            <tr>
+              <td class="ssr-file-no">2.4.2(3)</td>
+              <td class="ssr-file-plain">List of full time teachers with Ph. D. / SLET with their e-copies of Ph. D. / SLET in A.Y. 2020-21</td>
+            </tr>
+            <tr>
+              <td class="ssr-file-no">2.4.2(4)</td>
+              <td class="ssr-file-plain">List of full time teachers with Ph. D. / SLET with their e-copies of Ph. D. / SLET in A.Y. 2019-20</td>
+            </tr>
+            <tr>
+              <td class="ssr-file-no">2.4.2(5)</td>
+              <td class="ssr-file-plain">List of full time teachers with Ph. D. / SLET with their e-copies of Ph. D. / SLET in A.Y. 2018-19</td>
+            </tr>
+
+            <tr>
+              <td rowspan="5">5</td>
+              <td rowspan="5">2.6.3</td>
+              <td class="ssr-file-no">2.6.3(1)</td>
+              <td><a href="/assets/pdfs/ssr/2-6-3-1.pdf" target="_blank" class="ssr-file-link">Result sheet published by the University for the A.Y.2022-23</a></td>
+            </tr>
+            <tr>
+              <td class="ssr-file-no">2.6.3(2)</td>
+              <td><a href="/assets/pdfs/ssr/2-6-3-2.pdf" target="_blank" class="ssr-file-link">Result sheet published by the University for the A.Y.2021-22</a></td>
+            </tr>
+            <tr>
+              <td class="ssr-file-no">2.6.3(3)</td>
+              <td><a href="/assets/pdfs/ssr/2-6-3-3.pdf" target="_blank" class="ssr-file-link">Result sheet published by the University for the A.Y.2020-21</a></td>
+            </tr>
+            <tr>
+              <td class="ssr-file-no">2.6.3(4)</td>
+              <td><a href="/assets/pdfs/ssr/2-6-3-4.pdf" target="_blank" class="ssr-file-link">Result sheet published by the University for the A.Y.2019-20</a></td>
+            </tr>
+            <tr>
+              <td class="ssr-file-no">2.6.3(5)</td>
+              <td><a href="/assets/pdfs/ssr/2-6-3-5.pdf" target="_blank" class="ssr-file-link">Result sheet published by the University for the A.Y.2018-19</a></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    `
+  },
+  'ssr-criteria-3': {
+    title: 'SSR Criteria-3',
+    parentLabel: 'SSR',
+    content: `
+      <div class="ssr-table-wrapper">
+        <table class="ssr-table">
+          <thead>
+            <tr>
+              <th>S.No</th>
+              <th>Metric No</th>
+              <th>File No</th>
+              <th>File Description</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td rowspan="5">1</td>
+              <td rowspan="5">3.2.2</td>
+              <td class="ssr-file-no">3.2.2(1)</td>
+              <td><a href="/assets/pdfs/ssr/3-2-2-1.pdf" target="_blank" class="ssr-file-link">Documents related to Seminars /Workshops organized during the A.Y 2022-23</a></td>
+            </tr>
+            <tr>
+              <td class="ssr-file-no">3.2.2(2)</td>
+              <td><a href="/assets/pdfs/ssr/3-2-2-2.pdf" target="_blank" class="ssr-file-link">Documents related to Seminars /Workshops organized during the A.Y 2021-22</a></td>
+            </tr>
+            <tr>
+              <td class="ssr-file-no">3.2.2(3)</td>
+              <td><a href="/assets/pdfs/ssr/3-2-2-3.pdf" target="_blank" class="ssr-file-link">Documents related to Seminars /Workshops organized during the A.Y 2020-21</a></td>
+            </tr>
+            <tr>
+              <td class="ssr-file-no">3.2.2(4)</td>
+              <td><a href="/assets/pdfs/ssr/3-2-2-4.pdf" target="_blank" class="ssr-file-link">Documents related to Seminars /Workshops organized during the A.Y 2019-20</a></td>
+            </tr>
+            <tr>
+              <td class="ssr-file-no">3.2.2(5)</td>
+              <td><a href="/assets/pdfs/ssr/3-2-2-5.pdf" target="_blank" class="ssr-file-link">Documents related to Seminars /Workshops organized during the A.Y 2018-19</a></td>
+            </tr>
+
+            <tr>
+              <td>2</td>
+              <td>3.3.2</td>
+              <td class="ssr-file-no">3.3.2</td>
+              <td class="ssr-file-plain">e-copies of first page, content page and participation of conferences during the assessment period</td>
+            </tr>
+
+            <tr>
+              <td>3</td>
+              <td>3.4.1</td>
+              <td class="ssr-file-no">3.4.1</td>
+              <td><a href="/assets/pdfs/ssr/3-4-1.pdf" target="_blank" class="ssr-file-link">List of extension activities during the assessment period</a></td>
+            </tr>
+
+            <tr>
+              <td>4</td>
+              <td>3.4.2</td>
+              <td class="ssr-file-no">3.4.2</td>
+              <td class="ssr-file-plain">e-copies of recognisation letter for extension activities during the assessment period</td>
+            </tr>
+
+            <tr>
+              <td rowspan="5">5</td>
+              <td rowspan="5">3.4.3</td>
+              <td class="ssr-file-no">3.4.3(1)</td>
+              <td><a href="/assets/pdfs/ssr/3-4-3-1.pdf" target="_blank" class="ssr-file-link">Documents related to organized extension activities during A.Y 2022-23</a></td>
+            </tr>
+            <tr>
+              <td class="ssr-file-no">3.4.3(2)</td>
+              <td><a href="/assets/pdfs/ssr/3-4-3-2.pdf" target="_blank" class="ssr-file-link">Documents related to organized extension activities during A.Y 2021-22</a></td>
+            </tr>
+            <tr>
+              <td class="ssr-file-no">3.4.3(3)</td>
+              <td><a href="/assets/pdfs/ssr/3-4-3-3.pdf" target="_blank" class="ssr-file-link">Documents related to organized extension activities during A.Y 2020-21</a></td>
+            </tr>
+            <tr>
+              <td class="ssr-file-no">3.4.3(4)</td>
+              <td><a href="/assets/pdfs/ssr/3-4-3-4.pdf" target="_blank" class="ssr-file-link">Documents related to organized extension activities during A.Y 2019-20</a></td>
+            </tr>
+            <tr>
+              <td class="ssr-file-no">3.4.3(5)</td>
+              <td><a href="/assets/pdfs/ssr/3-4-3-5.pdf" target="_blank" class="ssr-file-link">Documents related to organized extension activities during A.Y 2018-19</a></td>
+            </tr>
+
+            <tr>
+              <td rowspan="5">6</td>
+              <td rowspan="5">3.5.1</td>
+              <td class="ssr-file-no">3.5.1(1)</td>
+              <td class="ssr-file-plain">e-copies of MoUs established in A.Y 2022-23</td>
+            </tr>
+            <tr>
+              <td class="ssr-file-no">3.5.1(2)</td>
+              <td class="ssr-file-plain">e-copies of MoUs established in A.Y 2021-22</td>
+            </tr>
+            <tr>
+              <td class="ssr-file-no">3.5.1(3)</td>
+              <td class="ssr-file-plain">e-copies of MoUs established in A.Y 2020-21</td>
+            </tr>
+            <tr>
+              <td class="ssr-file-no">3.5.1(4)</td>
+              <td class="ssr-file-plain">e-copies of MoUs established in A.Y 2019-20</td>
+            </tr>
+            <tr>
+              <td class="ssr-file-no">3.5.1(5)</td>
+              <td class="ssr-file-plain">e-copies of MoUs established in A.Y 2018-19</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    `
+  },
+  'ssr-criteria-4': {
+    title: 'SSR Criteria-4',
+    parentLabel: 'SSR',
+    content: `
+      <div class="ssr-table-wrapper">
+        <table class="ssr-table">
+          <thead>
+            <tr>
+              <th>S.No</th>
+              <th>Metric No</th>
+              <th>File No</th>
+              <th>File Description</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td rowspan="3">1</td>
+              <td rowspan="3">4.3.2</td>
+              <td class="ssr-file-no">4.3.2(1)</td>
+              <td><a href="/assets/pdfs/ssr/4-3-2-1.pdf" target="_blank" class="ssr-file-link">Student-Computer Ratio</a></td>
+            </tr>
+            <tr>
+              <td class="ssr-file-no">4.3.2(2)</td>
+              <td><a href="/assets/pdfs/ssr/4-3-2-2.pdf" target="_blank" class="ssr-file-link">Invoices of the Computers</a></td>
+            </tr>
+            <tr>
+              <td class="ssr-file-no">4.3.2(3)</td>
+              <td><a href="/assets/pdfs/ssr/4-3-2-3.pdf" target="_blank" class="ssr-file-link">Stock Register Entry</a></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    `
+  },
+  'ssr-criteria-5': {
+    title: 'SSR Criteria-5',
+    parentLabel: 'SSR',
+    content: `
+      <div class="ssr-table-wrapper">
+        <table class="ssr-table">
+          <thead>
+            <tr>
+              <th>S.No</th>
+              <th>Metric No</th>
+              <th>File No</th>
+              <th>File Description</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td rowspan="7">1</td>
+              <td rowspan="7">5.1.1</td>
+              <td class="ssr-file-no">5.1.1(1)</td>
+              <td><a href="/assets/pdfs/ssr/5-1-1-1.pdf" target="_blank" class="ssr-file-link">Sanction letters and list of students benefited by Government in A.Y 2022-23</a></td>
+            </tr>
+            <tr>
+              <td class="ssr-file-no">5.1.1(2)</td>
+              <td><a href="/assets/pdfs/ssr/5-1-1-2.pdf" target="_blank" class="ssr-file-link">Sanction letters and list of students benefited by Government in A.Y 2021-22</a></td>
+            </tr>
+            <tr>
+              <td class="ssr-file-no">5.1.1(3)</td>
+              <td><a href="/assets/pdfs/ssr/5-1-1-3.pdf" target="_blank" class="ssr-file-link">Sanction letters and list of students benefited by Government in A.Y 2020-21</a></td>
+            </tr>
+            <tr>
+              <td class="ssr-file-no">5.1.1(4)</td>
+              <td><a href="/assets/pdfs/ssr/5-1-1-4.pdf" target="_blank" class="ssr-file-link">Sanction letters and list of students benefited by Government in A.Y 2019-20</a></td>
+            </tr>
+            <tr>
+              <td class="ssr-file-no">5.1.1(5)</td>
+              <td><a href="/assets/pdfs/ssr/5-1-1-5.pdf" target="_blank" class="ssr-file-link">Sanction letters and list of students benefited by Government in A.Y 2018-19</a></td>
+            </tr>
+            <tr>
+              <td class="ssr-file-no">5.1.1(6)</td>
+              <td><a href="/assets/pdfs/ssr/5-1-1-6.pdf" target="_blank" class="ssr-file-link">Policy Document</a></td>
+            </tr>
+            <tr>
+              <td class="ssr-file-no">5.1.1(7)</td>
+              <td><a href="/assets/pdfs/ssr/5-1-1-7.pdf" target="_blank" class="ssr-file-link">List of students benfitted by Insistitunioal Freeships for last five years with sample sanction letters</a></td>
+            </tr>
+
+            <tr>
+              <td rowspan="5">2</td>
+              <td rowspan="5">5.1.2</td>
+              <td class="ssr-file-no">5.1.2(1)</td>
+              <td class="ssr-file-plain">Documents related to organised softskills programmmes during Assessment period</td>
+            </tr>
+            <tr>
+              <td class="ssr-file-no">5.1.2(2)</td>
+              <td class="ssr-file-plain">Documents related to organised language and communication skills during Assessment period</td>
+            </tr>
+            <tr>
+              <td class="ssr-file-no">5.1.2(3)</td>
+              <td class="ssr-file-plain">Documents related to organised lifeskills programmes during Assessment period</td>
+            </tr>
+            <tr>
+              <td class="ssr-file-no">5.1.2(4)</td>
+              <td class="ssr-file-plain">Documents related to organised ICT/Computing skills programmmes during Assessment period</td>
+            </tr>
+            <tr>
+              <td class="ssr-file-no">5.1.2(5)</td>
+              <td class="ssr-file-plain">Institutional Weblink</td>
+            </tr>
+
+            <tr>
+              <td rowspan="5">3</td>
+              <td rowspan="5">5.1.3</td>
+              <td class="ssr-file-no">5.1.3(1)</td>
+              <td><a href="/assets/pdfs/ssr/5-1-3-1.pdf" target="_blank" class="ssr-file-link">Documents related to guidance for competitive examinations and career counselling during A.Y 2022-23</a></td>
+            </tr>
+            <tr>
+              <td class="ssr-file-no">5.1.3(2)</td>
+              <td><a href="/assets/pdfs/ssr/5-1-3-2.pdf" target="_blank" class="ssr-file-link">Documents related to guidance for competitive examinations and career counselling during A.Y 2021-22</a></td>
+            </tr>
+            <tr>
+              <td class="ssr-file-no">5.1.3(3)</td>
+              <td><a href="/assets/pdfs/ssr/5-1-3-3.pdf" target="_blank" class="ssr-file-link">Documents related to guidance for competitive examinations and career counselling during A.Y 2020-21</a></td>
+            </tr>
+            <tr>
+              <td class="ssr-file-no">5.1.3(4)</td>
+              <td><a href="/assets/pdfs/ssr/5-1-3-4.pdf" target="_blank" class="ssr-file-link">Documents related to guidance for competitive examinations and career counselling during A.Y 2019-20</a></td>
+            </tr>
+            <tr>
+              <td class="ssr-file-no">5.1.3(5)</td>
+              <td><a href="/assets/pdfs/ssr/5-1-3-5.pdf" target="_blank" class="ssr-file-link">Documents related to guidance for competitive examinations and career counselling during A.Y 2018-19</a></td>
+            </tr>
+
+            <tr>
+              <td rowspan="5">4</td>
+              <td rowspan="5">5.1.4</td>
+              <td class="ssr-file-no">5.1.4(1)</td>
+              <td class="ssr-file-plain">Minutes of Anti ragging committee</td>
+            </tr>
+            <tr>
+              <td class="ssr-file-no">5.1.4(2)</td>
+              <td class="ssr-file-plain">ICC committee</td>
+            </tr>
+            <tr>
+              <td class="ssr-file-no">5.1.4(3)</td>
+              <td class="ssr-file-plain">Grievance Redressal cell</td>
+            </tr>
+            <tr>
+              <td class="ssr-file-no">5.1.4(4)</td>
+              <td class="ssr-file-plain">Sample filled undertaking forms</td>
+            </tr>
+            <tr>
+              <td class="ssr-file-no">5.1.4(5)</td>
+              <td class="ssr-file-plain">Weblink for online grievance cell</td>
+            </tr>
+
+            <tr>
+              <td rowspan="5">5</td>
+              <td rowspan="5">5.2.1</td>
+              <td class="ssr-file-no">5.2.1(1)</td>
+              <td><a href="/assets/pdfs/ssr/5-2-1-1.pdf" target="_blank" class="ssr-file-link">Offer letters of the placed students and admission letters of students enrolled in higher education during A.Y 2022-23</a></td>
+            </tr>
+            <tr>
+              <td class="ssr-file-no">5.2.1(2)</td>
+              <td><a href="/assets/pdfs/ssr/5-2-1-2.pdf" target="_blank" class="ssr-file-link">Offer letters of the placed students and admission letters of students enrolled in higher education during A.Y 2021-22</a></td>
+            </tr>
+            <tr>
+              <td class="ssr-file-no">5.2.1(3)</td>
+              <td><a href="/assets/pdfs/ssr/5-2-1-3.pdf" target="_blank" class="ssr-file-link">Offer letters of the placed students and admission letters of students enrolled in higher education during A.Y 2020-21</a></td>
+            </tr>
+            <tr>
+              <td class="ssr-file-no">5.2.1(4)</td>
+              <td><a href="/assets/pdfs/ssr/5-2-1-4.pdf" target="_blank" class="ssr-file-link">Offer letters of the placed students and admission letters of students enrolled in higher education during A.Y 2019-20</a></td>
+            </tr>
+            <tr>
+              <td class="ssr-file-no">5.2.1(5)</td>
+              <td><a href="/assets/pdfs/ssr/5-2-1-5.pdf" target="_blank" class="ssr-file-link">Offer letters of the placed students and admission letters of students enrolled in higher education during A.Y 2018-19</a></td>
+            </tr>
+
+            <tr>
+              <td rowspan="5">6</td>
+              <td rowspan="5">5.2.2</td>
+              <td class="ssr-file-no">5.2.2(1)</td>
+              <td class="ssr-file-plain">List of students with E-copies of qualifying certificates in A.Y 2022-23</td>
+            </tr>
+            <tr>
+              <td class="ssr-file-no">5.2.2(2)</td>
+              <td class="ssr-file-plain">List of students with E-copies of qualifying certificates in A.Y 2021-22</td>
+            </tr>
+            <tr>
+              <td class="ssr-file-no">5.2.2(3)</td>
+              <td class="ssr-file-plain">List of students with E-copies of qualifying certificates in A.Y 2020-21</td>
+            </tr>
+            <tr>
+              <td class="ssr-file-no">5.2.2(4)</td>
+              <td class="ssr-file-plain">List of students with E-copies of qualifying certificates in A.Y 2019-20</td>
+            </tr>
+            <tr>
+              <td class="ssr-file-no">5.2.2(5)</td>
+              <td class="ssr-file-plain">List of students with E-copies of qualifying certificates in A.Y 2018-19</td>
+            </tr>
+
+            <tr>
+              <td rowspan="5">7</td>
+              <td rowspan="5">5.3.1</td>
+              <td class="ssr-file-no">5.3.1(1)</td>
+              <td><a href="/assets/pdfs/ssr/5-3-1-1.pdf" target="_blank" class="ssr-file-link">E-copies of merit certificates in sports and culturals during A.Y.2022-23</a></td>
+            </tr>
+            <tr>
+              <td class="ssr-file-no">5.3.1(2)</td>
+              <td><a href="/assets/pdfs/ssr/5-3-1-2.pdf" target="_blank" class="ssr-file-link">E-copies of merit certificates in sports and culturals during A.Y.2021-22</a></td>
+            </tr>
+            <tr>
+              <td class="ssr-file-no">5.3.1(3)</td>
+              <td><a href="/assets/pdfs/ssr/5-3-1-3.pdf" target="_blank" class="ssr-file-link">E-copies of merit certificates in sports and culturals during A.Y 2020-21</a></td>
+            </tr>
+            <tr>
+              <td class="ssr-file-no">5.3.1(4)</td>
+              <td><a href="/assets/pdfs/ssr/5-3-1-4.pdf" target="_blank" class="ssr-file-link">E-copies of merit certificates in sports and culturals during A.Y 2019-20</a></td>
+            </tr>
+            <tr>
+              <td class="ssr-file-no">5.3.1(5)</td>
+              <td><a href="/assets/pdfs/ssr/5-3-1-5.pdf" target="_blank" class="ssr-file-link">E-copies of merit certificates in sports and culturals during A.Y 2018-19</a></td>
+            </tr>
+
+            <tr>
+              <td rowspan="5">8</td>
+              <td rowspan="5">5.3.2</td>
+              <td class="ssr-file-no">5.3.2(1)</td>
+              <td class="ssr-file-plain">Documents related to sports and cultural competitions organised in the institution and e-copies of participation certificates in other institutions in A.Y 2022-23</td>
+            </tr>
+            <tr>
+              <td class="ssr-file-no">5.3.2(2)</td>
+              <td class="ssr-file-plain">Documents related to sports and cultural competitions organised in the institution and e-copies of participation certificates in other institutions in A.Y 2021-22</td>
+            </tr>
+            <tr>
+              <td class="ssr-file-no">5.3.2(3)</td>
+              <td class="ssr-file-plain">Documents related to sports and cultural competitions organised in the institution and e-copies of participation certificates in other institutions in A.Y 2020-21</td>
+            </tr>
+            <tr>
+              <td class="ssr-file-no">5.3.2(4)</td>
+              <td class="ssr-file-plain">Documents related to sports and cultural competitions organised in the institution and e-copies of participation certificates in other institutions in A.Y 2019-20</td>
+            </tr>
+            <tr>
+              <td class="ssr-file-no">5.3.2(5)</td>
+              <td class="ssr-file-plain">Documents related to sports and cultural competitions organised in the institution and e-copies of participation certificates in other institutions in A.Y 2018-19</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    `
+  },
+  'ssr-criteria-6': {
+    title: 'SSR Criteria-6',
+    parentLabel: 'SSR',
+    content: `
+      <div class="ssr-table-wrapper">
+        <table class="ssr-table">
+          <thead>
+            <tr>
+              <th>S.No</th>
+              <th>Metric No</th>
+              <th>File No</th>
+              <th>File Description</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td rowspan="5">1</td>
+              <td rowspan="5">6.2.2</td>
+              <td class="ssr-file-no">6.2.2(1)</td>
+              <td><a href="/assets/pdfs/ssr/6-2-2-1.pdf" target="_blank" class="ssr-file-link">Policy on E-governece</a></td>
+            </tr>
+            <tr>
+              <td class="ssr-file-no">6.2.2(2)</td>
+              <td><a href="/assets/pdfs/ssr/6-2-2-2.pdf" target="_blank" class="ssr-file-link">Invoices</a></td>
+            </tr>
+            <tr>
+              <td class="ssr-file-no">6.2.2(3)</td>
+              <td><a href="/assets/pdfs/ssr/6-2-2-3.pdf" target="_blank" class="ssr-file-link">Screenshots</a></td>
+            </tr>
+            <tr>
+              <td class="ssr-file-no">6.2.2(4)</td>
+              <td><a href="/assets/pdfs/ssr/6-2-2-4.pdf" target="_blank" class="ssr-file-link">ERP Document</a></td>
+            </tr>
+            <tr>
+              <td class="ssr-file-no">6.2.2(5)</td>
+              <td><a href="/assets/pdfs/ssr/6-2-2-5.pdf" target="_blank" class="ssr-file-link">Annual Report</a></td>
+            </tr>
+
+            <tr>
+              <td rowspan="7">2</td>
+              <td rowspan="7">6.3.2</td>
+              <td class="ssr-file-no">6.3.2(1)</td>
+              <td class="ssr-file-plain">Policy Document</td>
+            </tr>
+            <tr>
+              <td class="ssr-file-no">6.3.2(2)</td>
+              <td class="ssr-file-plain">List of Fulltime Teachers Benifited by Financial Support with their Sanction Letters A.Y-2022-23</td>
+            </tr>
+            <tr>
+              <td class="ssr-file-no">6.3.2(3)</td>
+              <td class="ssr-file-plain">List of Fulltime Teachers Benifited by Financial Support with their Sanction Letters A.Y-2021-22</td>
+            </tr>
+            <tr>
+              <td class="ssr-file-no">6.3.2(4)</td>
+              <td class="ssr-file-plain">List of Fulltime Teachers Benifited by Financial Support with their Scantion Letters A.Y-2020-21</td>
+            </tr>
+            <tr>
+              <td class="ssr-file-no">6.3.2(5)</td>
+              <td class="ssr-file-plain">List of Fulltime Teachers Benifited by Financial Support with their Scantion Letters A.Y-2019-20</td>
+            </tr>
+            <tr>
+              <td class="ssr-file-no">6.3.2(6)</td>
+              <td class="ssr-file-plain">List of Fulltime Teachers Benifited by Financial Support with their Scantion Letters A.Y-2018-19</td>
+            </tr>
+            <tr>
+              <td class="ssr-file-no">6.3.2(7)</td>
+              <td class="ssr-file-plain">Audited Statements</td>
+            </tr>
+
+            <tr>
+              <td rowspan="6">3</td>
+              <td rowspan="6">6.3.3</td>
+              <td class="ssr-file-no">6.3.3(1)</td>
+              <td><a href="/assets/pdfs/ssr/6-3-3-1.pdf" target="_blank" class="ssr-file-link">Organisied Profesional Development Programmes For Teachers and Administritave Training Programme for Non-Teaching along with their E-copies of Participations A.Y-2022-23</a></td>
+            </tr>
+            <tr>
+              <td class="ssr-file-no">6.3.3(2)</td>
+              <td><a href="/assets/pdfs/ssr/6-3-3-2.pdf" target="_blank" class="ssr-file-link">Organisied Profesional Development Programmes For Teachers and Administritave Training Programme for Non-Teaching along with their E-copies of Participations A.Y-2021-22</a></td>
+            </tr>
+            <tr>
+              <td class="ssr-file-no">6.3.3(3)</td>
+              <td><a href="/assets/pdfs/ssr/6-3-3-3.pdf" target="_blank" class="ssr-file-link">Organisied Profesional Development Programmes For Teachers and Administritave Training Programme for Non-Teaching along with their E-copies of Participations A.Y-2020-21</a></td>
+            </tr>
+            <tr>
+              <td class="ssr-file-no">6.3.3(4)</td>
+              <td><a href="/assets/pdfs/ssr/6-3-3-4.pdf" target="_blank" class="ssr-file-link">Organisied Profesional Development Programmes For Teachers and Administritave Training Programme for Non-Teaching along with their E-copies of Participations A.Y-2019-20</a></td>
+            </tr>
+            <tr>
+              <td class="ssr-file-no">6.3.3(5)</td>
+              <td><a href="/assets/pdfs/ssr/6-3-3-5.pdf" target="_blank" class="ssr-file-link">Organisied Profesional Development Programmes For Teachers and Administritave Training Programme for Non-Teaching along with their E-copies of Participations A.Y-2018-19</a></td>
+            </tr>
+            <tr>
+              <td class="ssr-file-no">6.3.3(6)</td>
+              <td><a href="/assets/pdfs/ssr/6-3-3-6.pdf" target="_blank" class="ssr-file-link">Annual Report</a></td>
+            </tr>
+
+            <tr>
+              <td rowspan="5">4</td>
+              <td rowspan="5">6.5.2</td>
+              <td class="ssr-file-no">6.5.2(1)</td>
+              <td class="ssr-file-plain">Minutes of IQAC</td>
+            </tr>
+            <tr>
+              <td class="ssr-file-no">6.5.2(2)</td>
+              <td class="ssr-file-plain">Feedback Collected and Analysis and Action taken Report</td>
+            </tr>
+            <tr>
+              <td class="ssr-file-no">6.5.2(3)</td>
+              <td class="ssr-file-plain">Academic and Administrative Audit (AAA)</td>
+            </tr>
+            <tr>
+              <td class="ssr-file-no">6.5.2(4)</td>
+              <td class="ssr-file-plain">List of Collabrative activities with other Institutions</td>
+            </tr>
+            <tr>
+              <td class="ssr-file-no">6.5.2(5)</td>
+              <td class="ssr-file-plain">ISO Certificate</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    `
+  },
+  'ssr-criteria-7': {
+    title: 'SSR Criteria-7',
+    parentLabel: 'SSR',
+    content: `
+      <div class="ssr-table-wrapper">
+        <table class="ssr-table">
+          <thead>
+            <tr>
+              <th>S.No</th>
+              <th>Metric No</th>
+              <th>File No</th>
+              <th>File Description</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td rowspan="6">1</td>
+              <td rowspan="6">7.1.2</td>
+              <td class="ssr-file-no">7.1.2(1)</td>
+              <td><a href="/assets/pdfs/ssr/7-1-2-1.pdf" target="_blank" class="ssr-file-link">Geo-Tagged Photographs</a></td>
+            </tr>
+            <tr>
+              <td class="ssr-file-no">7.1.2(2)</td>
+              <td><a href="/assets/pdfs/ssr/7-1-2-2.pdf" target="_blank" class="ssr-file-link">Invoices</a></td>
+            </tr>
+            <tr>
+              <td class="ssr-file-no">7.1.2(3)</td>
+              <td><a href="/assets/pdfs/ssr/7-1-2-3.pdf" target="_blank" class="ssr-file-link">MoUs For Solid and e-Waste Management</a></td>
+            </tr>
+            <tr>
+              <td class="ssr-file-no">7.1.2(4)</td>
+              <td><a href="/assets/pdfs/ssr/7-1-2-4.pdf" target="_blank" class="ssr-file-link">Circulars for No Entry of Automobiles and Ban on Use of Plastic</a></td>
+            </tr>
+            <tr>
+              <td class="ssr-file-no">7.1.2(5)</td>
+              <td><a href="/assets/pdfs/ssr/7-1-2-5.pdf" target="_blank" class="ssr-file-link">Scribe Letters</a></td>
+            </tr>
+            <tr>
+              <td class="ssr-file-no">7.1.2(6)</td>
+              <td><a href="/assets/pdfs/ssr/7-1-2-6.pdf" target="_blank" class="ssr-file-link">Policy Documents</a></td>
+            </tr>
+
+            <tr>
+              <td rowspan="7">2</td>
+              <td rowspan="7">7.1.3</td>
+              <td class="ssr-file-no">7.1.3(1)</td>
+              <td class="ssr-file-plain">Policy for Energy Utilization and Environment</td>
+            </tr>
+            <tr>
+              <td class="ssr-file-no">7.1.3(2)</td>
+              <td class="ssr-file-plain">Green Audit report</td>
+            </tr>
+            <tr>
+              <td class="ssr-file-no">7.1.3(3)</td>
+              <td class="ssr-file-plain">Environment audit Report</td>
+            </tr>
+            <tr>
+              <td class="ssr-file-no">7.1.3(4)</td>
+              <td class="ssr-file-plain">Energy aduit Report</td>
+            </tr>
+            <tr>
+              <td class="ssr-file-no">7.1.3(5)</td>
+              <td class="ssr-file-plain">Document Related to Clean and Green Campus Initiatives</td>
+            </tr>
+            <tr>
+              <td class="ssr-file-no">7.1.3(6)</td>
+              <td class="ssr-file-plain">Report on Green Campus Initiatives</td>
+            </tr>
+            <tr>
+              <td class="ssr-file-no">7.1.3(7)</td>
+              <td class="ssr-file-plain">Document related to Environment Promotion Activities beyond Campus</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    `
+  },
+  'dvv-extended-profile': {
+    title: 'Extended Profile Deviations',
+    parentLabel: 'DVV',
+    content: `
+      <div class="dvv-table-wrapper">
+        <div class="dvv-header-banner">EXTENDED PROFILE DEVIATIONS</div>
+        <table class="dvv-table">
+          <thead>
+            <tr>
+              <th>S.No</th>
+              <th>Metric No</th>
+              <th>DVV Comments</th>
+              <th>File No</th>
+              <th>File Description</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td rowspan="2">1</td>
+              <td rowspan="2">1.1</td>
+              <td rowspan="2" class="dvv-comment">
+                &middot; Provide appropriate link to the admission approval documents received from the university for assessment period<br>
+                &middot; Year wise list of students approved by the affiliating University
+              </td>
+              <td class="ssr-file-no">1.1(1)</td>
+              <td><a href="/assets/pdfs/dvv/1-1-1.pdf" target="_blank" class="dvv-file-link">PCI approvals for the last five years</a></td>
+            </tr>
+            <tr>
+              <td class="ssr-file-no">1.1(2)</td>
+              <td><a href="/assets/pdfs/dvv/1-1-2.pdf" target="_blank" class="dvv-file-link">Year-wise certified list of students for the last five years</a></td>
+            </tr>
+
+            <tr>
+              <td>2</td>
+              <td>2.1</td>
+              <td class="dvv-comment">
+                Provide the list of total full time teachers in block five years (Without repeat count) indicating the departmental affiliation during the assessment period authenticated by the Principal/competent authority
+              </td>
+              <td class="ssr-file-no">2.1</td>
+              <td><a href="/assets/pdfs/dvv/2-1.pdf" target="_blank" class="dvv-file-link">Certified list of full-time teachers(without repeat count) for the assessment period</a></td>
+            </tr>
+
+            <tr>
+              <td>3</td>
+              <td>2.2</td>
+              <td class="dvv-comment">
+                Provide the list of all full time teachers indicating the departmental affiliation during the assessment period authenticated by the Principal/ Competent authority.
+              </td>
+              <td class="ssr-file-no">2.2</td>
+              <td><a href="/assets/pdfs/dvv/2-2.pdf" target="_blank" class="dvv-file-link">Year-wise certified list of full-time teachers for the assessment period</a></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    `
+  },
+  'dvv-metric-level': {
+    title: 'Metric Level Deviations',
+    parentLabel: 'DVV',
+    content: `
+      <div class="dvv-table-wrapper">
+        <div class="dvv-header-banner-dark">METRIC LEVEL DEVIATIONS</div>
+
+        <div class="dvv-criterion-banner">CRITERION 1- CURRICULAR ASPECTS</div>
+        <table class="dvv-table">
+          <thead>
+            <tr>
+              <th>S.No</th>
+              <th>Metric No</th>
+              <th>DVV Comments</th>
+              <th>File No</th>
+              <th>File Description</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>1</td>
+              <td>1.2.1</td>
+              <td class="dvv-comment">Details of each program such as: Name of the program duration, list of students enrolled (with signature of students), model certificates, curriculum, assessment procedures year-wise.</td>
+              <td>
+                <div class="dvv-file-no-stack">1.2.1(1)<br>1.2.1(2)<br>1.2.1(3)<br>1.2.1(4)<br>1.2.1(5)</div>
+              </td>
+              <td>
+                <div class="dvv-file-desc-stack">
+                  <a href="/assets/pdfs/dvv/1-2-1-1.pdf" target="_blank" class="dvv-file-link">Documents related to certificate programs for A.Y 2022-23</a>
+                  <a href="/assets/pdfs/dvv/1-2-1-2.pdf" target="_blank" class="dvv-file-link">Documents related to certificate programs for A.Y 2021-22</a>
+                  <a href="/assets/pdfs/dvv/1-2-1-3.pdf" target="_blank" class="dvv-file-link">Documents related to certificate programs for A.Y 2020-21</a>
+                  <a href="/assets/pdfs/dvv/1-2-1-4.pdf" target="_blank" class="dvv-file-link">Documents related to certificate programs for A.Y 2019-20</a>
+                  <a href="/assets/pdfs/dvv/1-2-1-5.pdf" target="_blank" class="dvv-file-link">Documents related to certificate programs for A.Y 2018-19</a>
+                </div>
+              </td>
+            </tr>
+            <tr>
+              <td>2</td>
+              <td>1.2.2</td>
+              <td class="dvv-comment">&middot; Year-wise List of the students enrolled in the Program as defined in 1.2.1 &middot; Attendance sheet of Students participating with signature and Model Certificates.</td>
+              <td>
+                <div class="dvv-file-no-stack">1.2.2(1)<br>1.2.2(2)<br>1.2.2(3)<br>1.2.2(4)<br>1.2.2(5)</div>
+              </td>
+              <td>
+                <div class="dvv-file-desc-stack">
+                  <a href="/assets/pdfs/dvv/1-2-2-1.pdf" target="_blank" class="dvv-file-link">List of students enrolled in certificate programs offered along with their attendance sheets and participation certificates during A.Y-2022-23</a>
+                  <a href="/assets/pdfs/dvv/1-2-2-2.pdf" target="_blank" class="dvv-file-link">List of students enrolled in certificate programs offered along with their attendance sheets and participation certificates during A.Y-2021-22</a>
+                  <a href="/assets/pdfs/dvv/1-2-2-3.pdf" target="_blank" class="dvv-file-link">List of students enrolled in certificate programs offered along with their attendance sheets and participation certificates during A.Y-2020-21</a>
+                  <a href="/assets/pdfs/dvv/1-2-2-4.pdf" target="_blank" class="dvv-file-link">List of students enrolled in certificate programs offered along with their attendance sheets and participation certificates during A.Y-2019-20</a>
+                  <a href="/assets/pdfs/dvv/1-2-2-5.pdf" target="_blank" class="dvv-file-link">List of students enrolled in certificate programs offered along with their attendance sheets and participation certificatesduring A.Y-2018-19</a>
+                </div>
+              </td>
+            </tr>
+            <tr>
+              <td>3</td>
+              <td>1.3.2</td>
+              <td class="dvv-comment">&middot; List of students along with the details of title, place of work, duration etc., &middot; Internship completion certificate / project work completion certificate from the organization where internship / project was completed. &middot; Link to report of the field work/sample photographs of the field work / permission letter only for field work from the competent authority will be considered</td>
+              <td>
+                <div class="dvv-file-no-stack">1.3.2(1)<br>1.3.2(2)<br>1.3.2(3)<br>1.3.2(4)</div>
+              </td>
+              <td>
+                <div class="dvv-file-desc-stack">
+                  <a href="/assets/pdfs/dvv/1-3-2-1.pdf" target="_blank" class="dvv-file-link">List of Students undertaken project work/ field work/ Internships</a>
+                  <a href="/assets/pdfs/dvv/1-3-2-2.pdf" target="_blank" class="dvv-file-link">Documents related to the students undertaken project work</a>
+                  <a href="/assets/pdfs/dvv/1-3-2-3.pdf" target="_blank" class="dvv-file-link">Documents related to Industrial Visits</a>
+                  <a href="/assets/pdfs/dvv/1-3-2-4.pdf" target="_blank" class="dvv-file-link">Documents related to the students undertaken Internships</a>
+                </div>
+              </td>
+            </tr>
+            <tr>
+              <td>4</td>
+              <td>1.4.1</td>
+              <td class="dvv-comment">&middot; Sample Filled in feedback forms from at least two stakeholders. &middot; Stakeholders' feedback analysis report. &middot; Action taken Report on feedback. &middot; Documentshowing the communication with the affiliating University for the Feedback provided.</td>
+              <td>
+                <div class="dvv-file-no-stack">1.4.1(1)<br>1.4.1(2)<br>1.4.1(3)<br>1.4.1(4)</div>
+              </td>
+              <td>
+                <div class="dvv-file-desc-stack">
+                  <a href="/assets/pdfs/dvv/1-4-1-1.pdf" target="_blank" class="dvv-file-link">Sample filled feedback forms</a>
+                  <a href="/assets/pdfs/dvv/1-4-1-2.pdf" target="_blank" class="dvv-file-link">Feedback analysis</a>
+                  <a href="/assets/pdfs/dvv/1-4-1-3.pdf" target="_blank" class="dvv-file-link">Action taken report</a>
+                  <a href="/assets/pdfs/dvv/1-4-1-4.pdf" target="_blank" class="dvv-file-link">Communication with Affiliating University</a>
+                </div>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+
+        <div class="dvv-criterion-banner">CRITERION 2- TEACHING-LEARNING AND EVALUATION</div>
+        <table class="dvv-table">
+          <thead>
+            <tr>
+              <th>S.No</th>
+              <th>Metric No</th>
+              <th>DVV Comments</th>
+              <th>File No</th>
+              <th>File Description</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>1</td>
+              <td>2.1.1</td>
+              <td class="dvv-comment">&middot; Document related to sanction of intake from affiliating University/ Government/statutory body for first year students only. &middot; Approved admission list year-wise (first year admission) program wise from the Affiliating university is mandatory</td>
+              <td>
+                <div class="dvv-file-no-stack">2.1.1(1)<br>2.1.1(2)<br>2.1.1(3)<br>2.1.1(4)<br>2.1.1(5)<br>2.1.1(6)</div>
+              </td>
+              <td>
+                <div class="dvv-file-desc-stack">
+                  <a href="/assets/pdfs/dvv/2-1-1-1.pdf" target="_blank" class="dvv-file-link">AICTE approvals for last five years</a>
+                  <a href="/assets/pdfs/dvv/2-1-1-2.pdf" target="_blank" class="dvv-file-link">List of Enrolled Students in the A.Y.2022-23</a>
+                  <a href="/assets/pdfs/dvv/2-1-1-3.pdf" target="_blank" class="dvv-file-link">List of Enrolled Students in the A.Y.2021-22</a>
+                  <a href="/assets/pdfs/dvv/2-1-1-4.pdf" target="_blank" class="dvv-file-link">List of Enrolled Students in the A.Y.2020-21</a>
+                  <a href="/assets/pdfs/dvv/2-1-1-5.pdf" target="_blank" class="dvv-file-link">List of Enrolled Students in the A.Y.2019-20</a>
+                  <a href="/assets/pdfs/dvv/2-1-1-6.pdf" target="_blank" class="dvv-file-link">List of Enrolled Students in the A.Y.2018-19</a>
+                </div>
+              </td>
+            </tr>
+            <tr>
+              <td>2</td>
+              <td>2.1.2</td>
+              <td class="dvv-comment">&middot; Copy of letter issued by state govt. or Central Government indicating the reserved categoriesto be considered as per the state rule (in English as applicable) &middot; Number of seats year wise earmarked for the reserved categories &middot; Admission extract submitted to the state OBC, SC and ST cell every year of the students (first year admission) with seal and signature of the principal. &middot; Approval of additional intake of students has to be submitted for the claim</td>
+              <td>
+                <div class="dvv-file-no-stack">2.1.2(1)<br>2.1.2(2)<br>2.1.2(3)<br>2.1.2(4)<br>2.1.2(5)<br>2.1.2(6)<br>2.1.2(7)<br>2.1.2(8)</div>
+              </td>
+              <td>
+                <div class="dvv-file-desc-stack">
+                  <a href="/assets/pdfs/dvv/2-1-2-1.pdf" target="_blank" class="dvv-file-link">G.O. related to reservation policy</a>
+                  <a href="/assets/pdfs/dvv/2-1-2-2.pdf" target="_blank" class="dvv-file-link">List of enrolled students against reserved category during A.Y.2022-23</a>
+                  <a href="/assets/pdfs/dvv/2-1-2-3.pdf" target="_blank" class="dvv-file-link">List of enrolled students against reserved category during A.Y.2021-22</a>
+                  <a href="/assets/pdfs/dvv/2-1-2-4.pdf" target="_blank" class="dvv-file-link">List of enrolled students against reserved category during A.Y.2020-21</a>
+                  <a href="/assets/pdfs/dvv/2-1-2-5.pdf" target="_blank" class="dvv-file-link">List of enrolled students against reserved category during A.Y.2019-20</a>
+                  <a href="/assets/pdfs/dvv/2-1-2-6.pdf" target="_blank" class="dvv-file-link">List of enrolled students against reserved category during A.Y.2018-19</a>
+                  <a href="/assets/pdfs/dvv/2-1-2-7.pdf" target="_blank" class="dvv-file-link">Admission Extract</a>
+                  <a href="/assets/pdfs/dvv/2-1-2-8.pdf" target="_blank" class="dvv-file-link">Documents related to the approval of additional intake of students</a>
+                </div>
+              </td>
+            </tr>
+            <tr>
+              <td>3</td>
+              <td>2.2.1</td>
+              <td class="dvv-comment">Provide appointment letters of Dr.K.Rajkiran, Dr.K.Rajarajeswari, K.Venkata Rajesh, U.Sri Venkatesh, G.Manoj Kumar, R.Krishna Priya, K.Manjulatha, M.Sayyamma, I.Jahansi Lakshmi, K.V.S.L.Kavya.</td>
+              <td>2.2.1</td>
+              <td><a href="/assets/pdfs/dvv/2-2-1.pdf" target="_blank" class="dvv-file-link">Appointment orders of the specified full-time teachers</a></td>
+            </tr>
+            <tr>
+              <td>4</td>
+              <td>2.4.1</td>
+              <td class="dvv-comment">Sanction letters (in English) of Dr.K.Rajkiran, Dr.K.Rajarajeswari, K.Venkata Rajesh, U.Sri Venkatesh, G.Manoj Kumar, R.Krishna Priya, K.Manjulatha, M.Sayyamma, I.Jahansi Lakshmi, K.V.S.L.Kavya indicating number of posts (including Management sanctioned posts) by competent authority</td>
+              <td>2.4.1</td>
+              <td><a href="/assets/pdfs/dvv/2-4-1.pdf" target="_blank" class="dvv-file-link">Sanction letters indicating the number of posts along with the appointment letters of the specified full-time teachers</a></td>
+            </tr>
+            <tr>
+              <td>5</td>
+              <td>2.4.2</td>
+              <td class="dvv-comment">&middot; List of faculty with highest degree should be provided as per academic session wise along with particulars of degree awarding university, subject and the year of award. &middot; Doctorate Degree / Provisional Degree Certificate awarded by UGC recognized universities only to be considered.</td>
+              <td>
+                <div class="dvv-file-no-stack">2.4.2(1)<br>2.4.2(2)<br>2.4.2(3)<br>2.4.2(4)<br>2.4.2(5)</div>
+              </td>
+              <td>
+                <div class="dvv-file-desc-stack">
+                  <a href="/assets/pdfs/dvv/2-4-2-1.pdf" target="_blank" class="dvv-file-link">List of full-time teachers with Ph.D. with their e-copies of Ph.D. in the A.Y.2022-23</a>
+                  <a href="/assets/pdfs/dvv/2-4-2-2.pdf" target="_blank" class="dvv-file-link">List of full-time teachers with Ph.D. with their e-copies of Ph.D. in the A.Y.2021-22</a>
+                  <a href="/assets/pdfs/dvv/2-4-2-3.pdf" target="_blank" class="dvv-file-link">List of full-time teachers with Ph.D. with their e-copies of Ph.D. in the A.Y.2020-21</a>
+                  <a href="/assets/pdfs/dvv/2-4-2-4.pdf" target="_blank" class="dvv-file-link">List of full-time teachers with Ph.D. with their e-copies of Ph.D. in the A.Y.2019-20</a>
+                  <a href="/assets/pdfs/dvv/2-4-2-5.pdf" target="_blank" class="dvv-file-link">List of full-time teachers with Ph.D. with their e-copies of Ph.D. in the A.Y.2018-19</a>
+                </div>
+              </td>
+            </tr>
+            <tr>
+              <td>6</td>
+              <td>2.6.3</td>
+              <td class="dvv-comment">&middot; Result sheet published by the affiliating university &middot; Certified report from Head of the institution / Controller of Examination of the affiliating university indicating pass percentage of students of the final year (final semester) eligible for the degree program-wise / year-wise.</td>
+              <td>
+                <div class="dvv-file-no-stack">2.6.3(1)<br>2.6.3(2)<br>2.6.3(3)<br>2.6.3(4)<br>2.6.3(5)</div>
+              </td>
+              <td>
+                <div class="dvv-file-desc-stack">
+                  <a href="/assets/pdfs/dvv/2-6-3-1.pdf" target="_blank" class="dvv-file-link">Result analysis along with the Result sheet published by the University for the A.Y.2022-23</a>
+                  <a href="/assets/pdfs/dvv/2-6-3-2.pdf" target="_blank" class="dvv-file-link">Result analysis along with the Result sheet published by the University for the A.Y.2021-22</a>
+                  <a href="/assets/pdfs/dvv/2-6-3-3.pdf" target="_blank" class="dvv-file-link">Result analysis along with the Result sheet published by the University for the A.Y.2020-21</a>
+                  <a href="/assets/pdfs/dvv/2-6-3-4.pdf" target="_blank" class="dvv-file-link">Result analysis along with the Result sheet published by the University for the A.Y.2019-20</a>
+                  <a href="/assets/pdfs/dvv/2-6-3-5.pdf" target="_blank" class="dvv-file-link">Result analysis along with the Result sheet published by the University for the A.Y.2018-19</a>
+                </div>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+
+        <div class="dvv-criterion-banner">CRITERION 3- RESEARCH, INNOVATIONS AND EXTENSION</div>
+        <table class="dvv-table">
+          <thead>
+            <tr>
+              <th>S.No</th>
+              <th>Metric No</th>
+              <th>DVV Comments</th>
+              <th>File No</th>
+              <th>File Description</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>1</td>
+              <td>3.1.1</td>
+              <td class="dvv-comment">&middot; List of grants for research projects received during the assessment years along with the nature of the award, and the awarding agency with amount. (sanctioned letter highlighting the required parts) &middot; Links to the e-copies of the sanctioned letters</td>
+              <td class="ssr-file-plain"></td>
+              <td class="ssr-file-plain"></td>
+            </tr>
+            <tr>
+              <td>2</td>
+              <td>3.2.2</td>
+              <td class="dvv-comment">&middot; Brochure/Geo tagged Photograph with date and captions; title of the workshops / seminars conducted. &middot; Link to the detailed report for each program as in the template.</td>
+              <td>
+                <div class="dvv-file-no-stack">3.2.2(1)<br>3.2.2(2)<br>3.2.2(3)<br>3.2.2(4)<br>3.2.2(5)</div>
+              </td>
+              <td>
+                <div class="dvv-file-desc-stack">
+                  <a href="/assets/pdfs/dvv/3-2-2-1.pdf" target="_blank" class="dvv-file-link">Documents related to Seminars /Workshops organized during the A.Y 2022-23</a>
+                  <a href="/assets/pdfs/dvv/3-2-2-2.pdf" target="_blank" class="dvv-file-link">Documents related to Seminars /Workshops organized during the A.Y 2021-22</a>
+                  <a href="/assets/pdfs/dvv/3-2-2-3.pdf" target="_blank" class="dvv-file-link">Documents related to Seminars /Workshops organized during the A.Y 2020-21</a>
+                  <a href="/assets/pdfs/dvv/3-2-2-4.pdf" target="_blank" class="dvv-file-link">Documents related to Seminars /Workshops organized during the A.Y 2019-20</a>
+                  <a href="/assets/pdfs/dvv/3-2-2-5.pdf" target="_blank" class="dvv-file-link">Documents related to Seminars /Workshops organized during the A.Y 2018-19</a>
+                </div>
+              </td>
+            </tr>
+            <tr>
+              <td>3</td>
+              <td>3.3.1</td>
+              <td class="dvv-comment">&middot; Link landing to the research paper &middot; Link to the journal website. &middot; URL of the content page in case print journal.</td>
+              <td>3.3.1</td>
+              <td><a href="/assets/pdfs/dvv/3-3-1.pdf" target="_blank" class="dvv-file-link">Data template</a></td>
+            </tr>
+            <tr>
+              <td>4</td>
+              <td>3.3.2</td>
+              <td class="dvv-comment">&middot; Cover page, content page and first page of the selected publication. &middot; Web-link of books.</td>
+              <td>
+                <div class="dvv-file-no-stack">3.3.2(1)<br>3.3.2(2)</div>
+              </td>
+              <td>
+                <div class="dvv-file-desc-stack">
+                  <a href="/assets/pdfs/dvv/3-3-2-1.pdf" target="_blank" class="dvv-file-link">Revised data template by including the column "Weblink of Books"</a>
+                  <a href="/assets/pdfs/dvv/3-3-2-2.pdf" target="_blank" class="dvv-file-link">e-copies of first page, content page and first page of the selected publication during the assessment period</a>
+                </div>
+              </td>
+            </tr>
+            <tr>
+              <td>5</td>
+              <td>3.4.3</td>
+              <td class="dvv-comment">Links / uploads of Photographs (preferably with banner) and any other supporting document of relevance should have proper captions and dates.</td>
+              <td>
+                <div class="dvv-file-no-stack">3.4.3(1)<br>3.4.3(2)<br>3.4.3(3)<br>3.4.3(4)<br>3.4.3(5)</div>
+              </td>
+              <td>
+                <div class="dvv-file-desc-stack">
+                  <a href="/assets/pdfs/dvv/3-4-3-1.pdf" target="_blank" class="dvv-file-link">Documents related to extension activities organized during the A.Y.2022-23</a>
+                  <a href="/assets/pdfs/dvv/3-4-3-2.pdf" target="_blank" class="dvv-file-link">Documents related to extension activities organized during the A.Y.2021-22</a>
+                  <a href="/assets/pdfs/dvv/3-4-3-3.pdf" target="_blank" class="dvv-file-link">Documents related to extension activities organized during the A.Y.2020-21</a>
+                  <a href="/assets/pdfs/dvv/3-4-3-4.pdf" target="_blank" class="dvv-file-link">Documents related to extension activities organized during the A.Y.2019-20</a>
+                  <a href="/assets/pdfs/dvv/3-4-3-5.pdf" target="_blank" class="dvv-file-link">Documents related to extension activities organized during the A.Y.2018-19</a>
+                </div>
+              </td>
+            </tr>
+            <tr>
+              <td>6</td>
+              <td>3.5.1</td>
+              <td class="dvv-comment">&middot; Copies of MoUs/ collaboration/ related documents indicating the nature of collaboration and activities year-wise. &middot; List of activities conducted under each MoU along with dates of starting and completion year-wise signed by both parties</td>
+              <td>
+                <div class="dvv-file-no-stack">3.5.1(1)<br>3.5.1(2)<br>3.5.1(3)<br>3.5.1(4)<br>3.5.1(5)</div>
+              </td>
+              <td>
+                <div class="dvv-file-desc-stack">
+                  <a href="/assets/pdfs/dvv/3-5-1-1.pdf" target="_blank" class="dvv-file-link">Certified list of collaborations along with their e-copies of MoUs established in A.Y 2022-23</a>
+                  <a href="/assets/pdfs/dvv/3-5-1-2.pdf" target="_blank" class="dvv-file-link">Certified list of collaborations along with their e-copies of MoUs established in A.Y 2021-22</a>
+                  <a href="/assets/pdfs/dvv/3-5-1-3.pdf" target="_blank" class="dvv-file-link">Certified list of collaborations along with their e-copies of MoUs established in A.Y 2020-21</a>
+                  <a href="/assets/pdfs/dvv/3-5-1-4.pdf" target="_blank" class="dvv-file-link">Certified list of collaborations along with their e-copies of MoUs established in A.Y 2019-20</a>
+                  <a href="/assets/pdfs/dvv/3-5-1-5.pdf" target="_blank" class="dvv-file-link">Certified list of collaborations along with their e-copies of MoUs established in A.Y 2018-19</a>
+                </div>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+
+        <div class="dvv-criterion-banner">CRITERION 4- INFRASTRUCTURE AND LEARNING RESOURCES</div>
+        <table class="dvv-table">
+          <thead>
+            <tr>
+              <th>S.No</th>
+              <th>Metric No</th>
+              <th>DVV Comments</th>
+              <th>File No</th>
+              <th>File Description</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>1</td>
+              <td>4.1.2</td>
+              <td class="dvv-comment">&middot; Provide the consolidated fund allocation towards infrastructure augmentation facilities duly certified by Principal and CA. &middot; Highlight the relevant items in the audited income and expenditure statement.</td>
+              <td class="ssr-file-plain"></td>
+              <td class="ssr-file-plain"></td>
+            </tr>
+            <tr>
+              <td>2</td>
+              <td>4.3.2</td>
+              <td class="dvv-comment">&middot; Bills for the purchase of computers to be provided. &middot; The stock entry of computers allotted for student use to be highlighted.</td>
+              <td>
+                <div class="dvv-file-no-stack">4.3.2(1)<br>4.3.2(2)</div>
+              </td>
+              <td>
+                <div class="dvv-file-desc-stack">
+                  <a href="/assets/pdfs/dvv/4-3-2-1.pdf" target="_blank" class="dvv-file-link">Invoices of the Computers</a>
+                  <a href="/assets/pdfs/dvv/4-3-2-2.pdf" target="_blank" class="dvv-file-link">Stock Register Entry by highlighting the entries of computers purchased</a>
+                </div>
+              </td>
+            </tr>
+            <tr>
+              <td>3</td>
+              <td>4.4.1</td>
+              <td class="dvv-comment">Provide audited income and expenditure statement highlighting the items of expenditure incurred on maintenance of physical facilities and academic support facilities, duly certified by Principal and CA.</td>
+              <td class="ssr-file-plain"></td>
+              <td class="ssr-file-plain"></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="dvv-criterion-banner">CRITERION 5- STUDENT SUPPORT AND PROGRESSION</div>
+      <table class="dvv-table">
+        <thead>
+          <tr>
+            <th>S.No</th>
+            <th>Metric No</th>
+            <th>DVV Comments</th>
+            <th>File No</th>
+            <th>File Description</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>1</td>
+            <td>5.1.1</td>
+            <td class="dvv-comment">&middot; Upload sanction letter of scholarship and freeships (in English). &middot; Year-wise list of students in each scheme to be attested by the competent authority. &middot; Upload policy document of the HEI for award of Non government scholarship and freeships</td>
+            <td>
+              <div class="dvv-file-no-stack">5.1.1(1)<br>5.1.1(2)<br>5.1.1(3)<br>5.1.1(4)<br>5.1.1(5)<br>5.1.1(6)<br>5.1.1(7)</div>
+            </td>
+            <td>
+              <div class="dvv-file-desc-stack">
+                <a href="/assets/pdfs/dvv/5-1-1-1.pdf" target="_blank" class="dvv-file-link">List of students benefitted by Government scholarship along with the sanction letters during the A.Y.2022-23</a>
+                <a href="/assets/pdfs/dvv/5-1-1-2.pdf" target="_blank" class="dvv-file-link">List of students benefitted by Government scholarship along with the sanction letters during the A.Y.2021-22</a>
+                <a href="/assets/pdfs/dvv/5-1-1-3.pdf" target="_blank" class="dvv-file-link">List of students benefitted by Government scholarship along with the sanction letters during the A.Y.2020-21</a>
+                <a href="/assets/pdfs/dvv/5-1-1-4.pdf" target="_blank" class="dvv-file-link">List of students benefitted by Government scholarship along with the sanction letters during the A.Y.2019-20</a>
+                <a href="/assets/pdfs/dvv/5-1-1-5.pdf" target="_blank" class="dvv-file-link">List of students benefitted by Government scholarship along with the sanction letters during the A.Y.2018-19</a>
+                <a href="/assets/pdfs/dvv/5-1-1-6.pdf" target="_blank" class="dvv-file-link">Policy Document on Institutional Freeships</a>
+                <a href="/assets/pdfs/dvv/5-1-1-7.pdf" target="_blank" class="dvv-file-link">List of students benefited by Institutional freeships</a>
+              </div>
+            </td>
+          </tr>
+          <tr>
+            <td>2</td>
+            <td>5.1.2</td>
+            <td class="dvv-comment">&middot; Soft copy of Circular /Brochure. &middot; Web-link to particular program/scheme/ Report of the event &middot; Photographs with date and caption for each scheme or event.</td>
+            <td>
+              <div class="dvv-file-no-stack">5.1.2(1)<br>5.1.2(2)<br>5.1.2(3)<br>5.1.2(4)<br>5.1.2(5)</div>
+            </td>
+            <td>
+              <div class="dvv-file-desc-stack">
+                <a href="/assets/pdfs/dvv/5-1-2-1.pdf" target="_blank" class="dvv-file-link">Documents related to organised soft skills programmes during assessment period</a>
+                <a href="/assets/pdfs/dvv/5-1-2-2.pdf" target="_blank" class="dvv-file-link">Documents related to organised language and communication skills during assessment period</a>
+                <a href="/assets/pdfs/dvv/5-1-2-3.pdf" target="_blank" class="dvv-file-link">Documents related to organised life skills programmes during assessment period</a>
+                <a href="/assets/pdfs/dvv/5-1-2-4.pdf" target="_blank" class="dvv-file-link">Documents related to organised ICT/ Communication skills programmes during assessment period</a>
+                <a href="/assets/pdfs/dvv/5-1-2-5.pdf" target="_blank" class="dvv-file-link">Institutional weblink redirecting to the Capacity Building and Skill Enhancement Activities</a>
+              </div>
+            </td>
+          </tr>
+          <tr>
+            <td>3</td>
+            <td>5.1.3</td>
+            <td class="dvv-comment">&middot; Soft copy of Circular / brochure / report of program with photographs with captions of such programs along with details of the resource persons. &middot; Year-wise list of students attending these schemes, signed by competent authority</td>
+            <td>
+              <div class="dvv-file-no-stack">5.1.3(1)<br>5.1.3(2)<br>5.1.3(3)<br>5.1.3(4)<br>5.1.3(5)</div>
+            </td>
+            <td>
+              <div class="dvv-file-desc-stack">
+                <a href="/assets/pdfs/dvv/5-1-3-1.pdf" target="_blank" class="dvv-file-link">Documents related to guidance for competitive examinations and career counselling during A.Y 2022-23</a>
+                <a href="/assets/pdfs/dvv/5-1-3-2.pdf" target="_blank" class="dvv-file-link">Documents related to guidance for competitive examinations and career counselling during A.Y 2021-22</a>
+                <a href="/assets/pdfs/dvv/5-1-3-3.pdf" target="_blank" class="dvv-file-link">Documents related to guidance for competitive examinations and career counselling during A.Y 2020-21</a>
+                <a href="/assets/pdfs/dvv/5-1-3-4.pdf" target="_blank" class="dvv-file-link">Documents related to guidance for competitive examinations and career counselling during A.Y 2019-20</a>
+                <a href="/assets/pdfs/dvv/5-1-3-5.pdf" target="_blank" class="dvv-file-link">Documents related to guidance for competitive examinations and career counselling during A.Y 2018-19</a>
+              </div>
+            </td>
+          </tr>
+          <tr>
+            <td>4</td>
+            <td>5.1.4</td>
+            <td class="dvv-comment">&middot; Proof of constitution of Internal committees / Grievances Committee formation / other committees as per UGC norms. &middot; Circular/web-link/ committee report justifying the objective of the metric &middot; Minutes of the meetings of student grievance committee, as per metric.</td>
+            <td>
+              <div class="dvv-file-no-stack">5.1.4(1)<br>5.1.4(2)<br>5.1.4(3)<br>5.1.4(4)<br>5.1.4(5)</div>
+            </td>
+            <td>
+              <div class="dvv-file-desc-stack">
+                <a href="/assets/pdfs/dvv/5-1-4-1.pdf" target="_blank" class="dvv-file-link">Minutes of Anti-ragging committee</a>
+                <a href="/assets/pdfs/dvv/5-1-4-2.pdf" target="_blank" class="dvv-file-link">Minutes of Internal Complaint Committee</a>
+                <a href="/assets/pdfs/dvv/5-1-4-3.pdf" target="_blank" class="dvv-file-link">Minutes of Grievance Redressal Committee</a>
+                <a href="/assets/pdfs/dvv/5-1-4-4.pdf" target="_blank" class="dvv-file-link">Sample filled undertaking forms</a>
+                <a href="/assets/pdfs/dvv/5-1-4-5.pdf" target="_blank" class="dvv-file-link">Weblink for online grievance cell</a>
+              </div>
+            </td>
+          </tr>
+          <tr>
+            <td>5</td>
+            <td>5.2.1</td>
+            <td class="dvv-comment">&middot; List of students placed along with placement details as per template year wise. &middot; Links/documents relating to placement cellsuch as brochures, tie-ups etc., can be uploaded. &middot; Upload supporting data for students who have joined for higher education in prescribed format for the assessment period.</td>
+            <td>
+              <div class="dvv-file-no-stack">5.2.1(1)<br>5.2.1(2)<br>5.2.1(3)<br>5.2.1(4)<br>5.2.1(5)<br>5.2.1(6)</div>
+            </td>
+            <td>
+              <div class="dvv-file-desc-stack">
+                <a href="/assets/pdfs/dvv/5-2-1-1.pdf" target="_blank" class="dvv-file-link">Placement Cell Annual Report along with the Offer letters of the placed students and admission letters of students enrolled in higher education during A.Y 2022-23</a>
+                <a href="/assets/pdfs/dvv/5-2-1-2.pdf" target="_blank" class="dvv-file-link">Placement Cell Annual Report along with the Offer letters of the placed students and admission letters of students enrolled in higher education during A.Y 2021-22</a>
+                <a href="/assets/pdfs/dvv/5-2-1-3.pdf" target="_blank" class="dvv-file-link">Placement Cell Annual Report along with the Offer letters of the placed students and admission letters of students enrolled in higher education during A.Y 2020-21</a>
+                <a href="/assets/pdfs/dvv/5-2-1-4.pdf" target="_blank" class="dvv-file-link">Placement Cell Annual Report along with the Offer letters of the placed students and admission letters of students enrolled in higher education during A.Y 2019-20</a>
+                <a href="/assets/pdfs/dvv/5-2-1-5.pdf" target="_blank" class="dvv-file-link">Placement Cell Annual Report along with the Offer letters of the placed students and admission letters of students enrolled in higher education during A.Y 2018-19</a>
+                <a href="/assets/pdfs/dvv/5-2-1-6.pdf" target="_blank" class="dvv-file-link">Tie-ups and communications with organisations</a>
+              </div>
+            </td>
+          </tr>
+          <tr>
+            <td>6</td>
+            <td>5.2.2</td>
+            <td class="dvv-comment">&middot; List of qualified students year-wise under each category &middot; Qualifying Certificates of the students will only be considered</td>
+            <td>
+              <div class="dvv-file-no-stack">5.2.2(1)<br>5.2.2(2)<br>5.2.2(3)<br>5.2.2(4)<br>5.2.2(5)</div>
+            </td>
+            <td>
+              <div class="dvv-file-desc-stack">
+                <a href="/assets/pdfs/dvv/5-2-2-1.pdf" target="_blank" class="dvv-file-link">List of qualified students along with their qualifying certificates in the A.Y.2022-23</a>
+                <a href="/assets/pdfs/dvv/5-2-2-2.pdf" target="_blank" class="dvv-file-link">List of qualified students along with their qualifying certificates in the A.Y.2021-22</a>
+                <a href="/assets/pdfs/dvv/5-2-2-3.pdf" target="_blank" class="dvv-file-link">List of qualified students along with their qualifying certificates in the A.Y.2020-21</a>
+                <a href="/assets/pdfs/dvv/5-2-2-4.pdf" target="_blank" class="dvv-file-link">List of qualified students along with their qualifying certificates in the A.Y.2019-20</a>
+                <a href="/assets/pdfs/dvv/5-2-2-5.pdf" target="_blank" class="dvv-file-link">List of qualified students along with their qualifying certificates in the A.Y.2018-19</a>
+              </div>
+            </td>
+          </tr>
+          <tr>
+            <td>7</td>
+            <td>5.3.1</td>
+            <td class="dvv-comment">e-copies of award letters and certificates to be uploaded.</td>
+            <td>
+              <div class="dvv-file-no-stack">5.3.1(1)<br>5.3.1(2)<br>5.3.1(3)<br>5.3.1(4)<br>5.3.1(5)</div>
+            </td>
+            <td>
+              <div class="dvv-file-desc-stack">
+                <a href="/assets/pdfs/dvv/5-3-1-1.pdf" target="_blank" class="dvv-file-link">List of students along with the e-copies of award letters for A.Y.2022-23</a>
+                <a href="/assets/pdfs/dvv/5-3-1-2.pdf" target="_blank" class="dvv-file-link">List of students along with the e-copies of award letters for A.Y.2021-22</a>
+                <a href="/assets/pdfs/dvv/5-3-1-3.pdf" target="_blank" class="dvv-file-link">List of students along with the e-copies of award letters for A.Y.2020-21</a>
+                <a href="/assets/pdfs/dvv/5-3-1-4.pdf" target="_blank" class="dvv-file-link">List of students along with the e-copies of award letters for A.Y.2019-20</a>
+                <a href="/assets/pdfs/dvv/5-3-1-5.pdf" target="_blank" class="dvv-file-link">List of students along with the e-copies of award letters for A.Y.2018-19</a>
+              </div>
+            </td>
+          </tr>
+          <tr>
+            <td>8</td>
+            <td>5.3.2</td>
+            <td class="dvv-comment">&middot; Soft copy of circular/brochure indicating such kind of activities. &middot; List of events along with the list of participants and year wise signed by the Principal.</td>
+            <td>
+              <div class="dvv-file-no-stack">5.3.2(1)<br>5.3.2(2)<br>5.3.2(3)<br>5.3.2(4)<br>5.3.2(5)<br>5.3.2(6)</div>
+            </td>
+            <td>
+              <div class="dvv-file-desc-stack">
+                <a href="/assets/pdfs/dvv/5-3-2-1.pdf" target="_blank" class="dvv-file-link">Documents related to sports and cultural competitions organised in the institution and e-copies of participation certificates in other institutions in A.Y 2022-23</a>
+                <a href="/assets/pdfs/dvv/5-3-2-2.pdf" target="_blank" class="dvv-file-link">Documents related to sports and cultural competitions organised in the institution and e-copies of participation certificates in other institutions in A.Y 2021-22</a>
+                <a href="/assets/pdfs/dvv/5-3-2-3.pdf" target="_blank" class="dvv-file-link">Documents related to sports and cultural competitions organised in the institution and e-copies of participation certificates in other institutions in A.Y 2020-21</a>
+                <a href="/assets/pdfs/dvv/5-3-2-4.pdf" target="_blank" class="dvv-file-link">Documents related to sports and cultural competitions organised in the institution and e-copies of participation certificates in other institutions in A.Y 2019-20</a>
+                <a href="/assets/pdfs/dvv/5-3-2-5.pdf" target="_blank" class="dvv-file-link">Documents related to sports and cultural competitions organised in the institution and e-copies of participation certificates in other institutions in A.Y 2018-19</a>
+                <a href="/assets/pdfs/dvv/5-3-2-6.pdf" target="_blank" class="dvv-file-link">Year-wise certified list of events along with the list of participants during the assessment period</a>
+              </div>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+
+      <div class="dvv-criterion-banner">CRITERION 6- GOVERNANCE, LEADERSHIP AND MANAGEMENT</div>
+      <table class="dvv-table">
+        <thead>
+          <tr>
+            <th>S.No</th>
+            <th>Metric No</th>
+            <th>DVV Comments</th>
+            <th>File No</th>
+            <th>File Description</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>1</td>
+            <td>6.2.2</td>
+            <td class="dvv-comment">&middot; Institutional expenditure statements for the heads of e-governance implementation reflected in the audited statement. &middot; Link to the ERP Document and Screen shots of user interfaces of each module reflecting the name of the HEI. &middot; Annual e-governance report approved by Governing Council. &middot; Policy document on e-governance.</td>
+            <td>
+              <div class="dvv-file-no-stack">6.2.2(1)<br>6.2.2(2)<br>6.2.2(3)<br>6.2.2(4)<br>6.2.2(5)</div>
+            </td>
+            <td>
+              <div class="dvv-file-desc-stack">
+                <a href="/assets/pdfs/dvv/6-2-2-1.pdf" target="_blank" class="dvv-file-link">Policy on e-governance</a>
+                <a href="/assets/pdfs/dvv/6-2-2-2.pdf" target="_blank" class="dvv-file-link">Invoices</a>
+                <a href="/assets/pdfs/dvv/6-2-2-3.pdf" target="_blank" class="dvv-file-link">Screenshots</a>
+                <a href="/assets/pdfs/dvv/6-2-2-4.pdf" target="_blank" class="dvv-file-link">ERP Document</a>
+                <a href="/assets/pdfs/dvv/6-2-2-5.pdf" target="_blank" class="dvv-file-link">Annual e-governance report</a>
+              </div>
+            </td>
+          </tr>
+          <tr>
+            <td>2</td>
+            <td>6.3.2</td>
+            <td class="dvv-comment">&middot; Link to the policy document &middot; e-copy of letter/s indicating financial assistance to teachers &middot; List of teachers receiving financial support year wise under each head signed by the principal. &middot; Audited statement of account highlighting the financial support.</td>
+            <td>
+              <div class="dvv-file-no-stack">6.3.2(1)<br>6.3.2(2)<br>6.3.2(3)<br>6.3.2(4)<br>6.3.2(5)<br>6.3.2(6)<br>6.3.2(7)</div>
+            </td>
+            <td>
+              <div class="dvv-file-desc-stack">
+                <a href="/assets/pdfs/dvv/6-3-2-1.pdf" target="_blank" class="dvv-file-link">Policy Document</a>
+                <a href="/assets/pdfs/dvv/6-3-2-2.pdf" target="_blank" class="dvv-file-link">List of Full-time teachers benefited by Financial Support with their Sanction Letters in the A.Y.2022-23</a>
+                <a href="/assets/pdfs/dvv/6-3-2-3.pdf" target="_blank" class="dvv-file-link">List of Full-time teachers benefited by Financial Support with their Sanction Letters in the A.Y.2021-22</a>
+                <a href="/assets/pdfs/dvv/6-3-2-4.pdf" target="_blank" class="dvv-file-link">List of Full-time teachers benefited by financial Support with their Sanction Letters in the A.Y.2020-21</a>
+                <a href="/assets/pdfs/dvv/6-3-2-5.pdf" target="_blank" class="dvv-file-link">List of Full-time teachers benefited by financial Support with their Sanction Letters in the A.Y.2019-20</a>
+                <a href="/assets/pdfs/dvv/6-3-2-6.pdf" target="_blank" class="dvv-file-link">List of Full-time teachers benefited by financial Support with their Sanction Letters in the A.Y.2018-19</a>
+                <a href="/assets/pdfs/dvv/6-3-2-7.pdf" target="_blank" class="dvv-file-link">Audited Statement</a>
+              </div>
+            </td>
+          </tr>
+          <tr>
+            <td>3</td>
+            <td>6.3.3</td>
+            <td class="dvv-comment">&middot; Event Brochures and reports year-wise. &middot; e-copy of the certificates of the program attended by teaching and non teaching staff. &middot; List of participating teaching and nonteaching staff as per the prescribed format year wise during the last five years. &middot; Annual reports highlighting the programs undertaken by the teaching faculties and non-teaching staff.</td>
+            <td>
+              <div class="dvv-file-no-stack">6.3.3(1)<br>6.3.3(2)<br>6.3.3(3)<br>6.3.3(4)<br>6.3.3(5)<br>6.3.3(6)<br>6.3.3(7)</div>
+            </td>
+            <td>
+              <div class="dvv-file-desc-stack">
+                <a href="/assets/pdfs/dvv/6-3-3-1.pdf" target="_blank" class="dvv-file-link">Organised Professional Development Programmes for Teachers and Administrative Training Programme for Non-Teaching along with their e-copies of Participations in the A.Y.2022-23</a>
+                <a href="/assets/pdfs/dvv/6-3-3-2.pdf" target="_blank" class="dvv-file-link">Organised Professional Development Programmes for Teachers and Administrative Training Programme for Non-Teaching along with their e-copies of Participations in the A.Y.2021-22</a>
+                <a href="/assets/pdfs/dvv/6-3-3-3.pdf" target="_blank" class="dvv-file-link">Organised Professional Development Programmes for Teachers and Administrative Training Programme for Non-Teaching along with their e-copies of Participations in the A.Y.2020-21</a>
+                <a href="/assets/pdfs/dvv/6-3-3-4.pdf" target="_blank" class="dvv-file-link">Organised Professional Development Programmes for Teachers and Administrative Training Programme for Non-Teaching along with their e-copies of Participations in the A.Y.2019-20</a>
+                <a href="/assets/pdfs/dvv/6-3-3-5.pdf" target="_blank" class="dvv-file-link">Organised Professional Development Programmes for Teachers and Administrative Training Programme for Non-Teaching along with their e-copies of Participations in the A.Y.2018-19</a>
+                <a href="/assets/pdfs/dvv/6-3-3-6.pdf" target="_blank" class="dvv-file-link">Certified list of Teachers and Non-Teaching staff participated in FDPs and training programs for last five years</a>
+                <a href="/assets/pdfs/dvv/6-3-3-7.pdf" target="_blank" class="dvv-file-link">Annual Report highlighting the programs undertaken by the teaching faculties and non-teaching staff.</a>
+              </div>
+            </td>
+          </tr>
+          <tr>
+            <td>4</td>
+            <td>6.5.2</td>
+            <td class="dvv-comment">&middot; Proceedings of meetings of IQAC and action taken report on feedback analysis &middot; Supporting document links to be provided as per the options selected.</td>
+            <td>
+              <div class="dvv-file-no-stack">6.5.2(1)<br>6.5.2(2)<br>6.5.2(3)<br>6.5.2(4)<br>6.5.2(5)</div>
+            </td>
+            <td>
+              <div class="dvv-file-desc-stack">
+                <a href="/assets/pdfs/dvv/6-5-2-1.pdf" target="_blank" class="dvv-file-link">Minutes of IQAC</a>
+                <a href="/assets/pdfs/dvv/6-5-2-2.pdf" target="_blank" class="dvv-file-link">Feedback collected and Analysis and Action taken report</a>
+                <a href="/assets/pdfs/dvv/6-5-2-3.pdf" target="_blank" class="dvv-file-link">Academic & Administrative Audit</a>
+                <a href="/assets/pdfs/dvv/6-5-2-4.pdf" target="_blank" class="dvv-file-link">List of collaborations with other Institutions</a>
+                <a href="/assets/pdfs/dvv/6-5-2-5.pdf" target="_blank" class="dvv-file-link">ISO Certificate</a>
+              </div>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+
+      <div class="dvv-criterion-banner">CRITERION 7- INSTITUTIONAL VALUES AND BEST PRACTICES</div>
+      <table class="dvv-table">
+        <thead>
+          <tr>
+            <th>S.No</th>
+            <th>Metric No</th>
+            <th>DVV Comments</th>
+            <th>File No</th>
+            <th>File Description</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>1</td>
+            <td>7.1.2</td>
+            <td class="dvv-comment">&middot; Link to the policy documents of the institution &middot; Geo tagged photographs and videos of the facilities with caption. &middot; Bills for the purchase of equipments for the facilities created under this metric. &middot; Photographs of Ramps/ rails/lift/wheel Chair/signage board /Toilet/ software etc.</td>
+            <td>
+              <div class="dvv-file-no-stack">7.1.2(1)<br>7.1.2(2)<br>7.1.2(3)<br>7.1.2(4)<br>7.1.2(5)<br>7.1.2(6)</div>
+            </td>
+            <td>
+              <div class="dvv-file-desc-stack">
+                <a href="/assets/pdfs/dvv/7-1-2-1.pdf" target="_blank" class="dvv-file-link">Geo-Tagged Photographs</a>
+                <a href="/assets/pdfs/dvv/7-1-2-2.pdf" target="_blank" class="dvv-file-link">Invoices</a>
+                <a href="/assets/pdfs/dvv/7-1-2-3.pdf" target="_blank" class="dvv-file-link">MoUs for solid and e-waste Management</a>
+                <a href="/assets/pdfs/dvv/7-1-2-4.pdf" target="_blank" class="dvv-file-link">Circulars for No Entry of Automobiles and Ban of Use of Plastic</a>
+                <a href="/assets/pdfs/dvv/7-1-2-5.pdf" target="_blank" class="dvv-file-link">Circulars related to scribe assistance</a>
+                <a href="/assets/pdfs/dvv/7-1-2-6.pdf" target="_blank" class="dvv-file-link">Policy Documents</a>
+              </div>
+            </td>
+          </tr>
+          <tr>
+            <td>2</td>
+            <td>7.1.3</td>
+            <td class="dvv-comment">&middot; Policy document on environment and energy usage &middot; Action taken reports and achievement report as clear and Green campus initiatives. &middot; Reports of the Audits. &middot; Certificate from the external accredited auditing agency (preferably government, concern department of affiliating university). &middot; Geo tagged photographs with caption and date. &middot; Any othersupporting document for beyond the campus environmental promotions.</td>
+            <td>
+              <div class="dvv-file-no-stack">7.1.3(1)<br>7.1.3(2)<br>7.1.3(3)<br>7.1.3(4)<br>7.1.3(5)<br>7.1.3(6)<br>7.1.3(7)</div>
+            </td>
+            <td>
+              <div class="dvv-file-desc-stack">
+                <a href="/assets/pdfs/dvv/7-1-3-1.pdf" target="_blank" class="dvv-file-link">Policy for Energy Utilization and Environment</a>
+                <a href="/assets/pdfs/dvv/7-1-3-2.pdf" target="_blank" class="dvv-file-link">Green Audit Report</a>
+                <a href="/assets/pdfs/dvv/7-1-3-3.pdf" target="_blank" class="dvv-file-link">Environment Audit Report</a>
+                <a href="/assets/pdfs/dvv/7-1-3-4.pdf" target="_blank" class="dvv-file-link">Energy Audit Report</a>
+                <a href="/assets/pdfs/dvv/7-1-3-5.pdf" target="_blank" class="dvv-file-link">Documents related to Clean and Green Campus Initiatives</a>
+                <a href="/assets/pdfs/dvv/7-1-3-6.pdf" target="_blank" class="dvv-file-link">Report on Clean and Green Campus Initiatives</a>
+                <a href="/assets/pdfs/dvv/7-1-3-7.pdf" target="_blank" class="dvv-file-link">Documents related to Environment Promotion Activities beyond Campus</a>
+              </div>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    `
+  },
+  'peer-team-visit': {
+    title: 'Peer Team Visit',
+    content: `
+      <div class="gallery-detail-grid">
+        <div class="gallery-detail-item">
+          <img src="/assets/naac/peer-team-visit-1.jpg" alt="Peer Team Visit" class="gallery-detail-img">
+        </div>
+      </div>
+    `
+  },
+  'aqar-2023-24': {
+    title: 'AQAR 2023-24',
+    content: `
+    <div class="table-responsive">
+      <table class="aqar-table">
+        <thead>
+          <tr>
+            <th>S.No</th>
+            <th>Metric No</th>
+            <th>File No</th>
+            <th>File Description</th>
+          </tr>
+        </thead>
+        <tbody>
+
+          <!-- Criterion 1 -->
+          <tr class="row-orange">
+            <td>1</td><td>1.2.1</td><td>1.2.1(1)</td>
+            <td>Documents related to Add-on programs for A.Y 2023-24</td>
+          </tr>
+          <tr class="row-orange">
+            <td>2</td><td>1.2.2</td><td>1.2.2(1)</td>
+            <td>List of students enrolled in certificate program offered during A.Y 2023-24</td>
+          </tr>
+          <tr class="row-orange">
+            <td rowspan="4">3</td><td rowspan="4">1.3.2</td><td>1.3.2(1)</td><td>List of Students</td>
+          </tr>
+          <tr class="row-orange"><td>1.3.2(2)</td><td>Project work</td></tr>
+          <tr class="row-orange"><td>1.3.2(3)</td><td>Industrial visit</td></tr>
+          <tr class="row-orange"><td>1.3.2(4)</td><td>Internships</td></tr>
+          <tr class="row-orange">
+            <td rowspan="5">4</td><td rowspan="5">1.4.1</td><td>1.4.1(1)</td><td>Sample filled feedback forms</td>
+          </tr>
+          <tr class="row-orange"><td>1.4.1(2)</td><td>Feedback analysis</td></tr>
+          <tr class="row-orange"><td>1.4.1(3)</td><td>Action taken report</td></tr>
+          <tr class="row-orange"><td>1.4.1(4)</td><td>Communication with Affiliated University</td></tr>
+          <tr class="row-orange"><td>1.4.1(5)</td><td>Institutional weblink</td></tr>
+
+          <!-- Criterion 2 -->
+          <tr class="row-blue">
+            <td rowspan="2">5</td><td rowspan="2">2.1.1</td><td>2.1.1(1)</td><td>AICTE approvals for last five years</td>
+          </tr>
+          <tr class="row-blue"><td>2.1.1(2)</td><td>List of Enrolled Students in A.Y 2023-24</td></tr>
+          <tr class="row-blue">
+            <td rowspan="3">6</td><td rowspan="3">2.1.2</td><td>2.1.2(1)</td><td>G.O. related to reservation policy</td>
+          </tr>
+          <tr class="row-blue"><td>2.1.2(2)</td><td>List of Enrolled Students against reserved category during A.Y 2023-24</td></tr>
+          <tr class="row-blue"><td>2.1.2(7)</td><td>Admission Extract</td></tr>
+          <tr class="row-blue">
+            <td rowspan="2">7</td><td rowspan="2">2.4.1</td><td>2.4.1(1)</td><td>Sanctioned Letters</td>
+          </tr>
+          <tr class="row-blue"><td>2.4.1(2)</td><td>List of full time teachers for A.Y 2023-24</td></tr>
+          <tr class="row-blue">
+            <td>8</td><td>2.4.2</td><td>2.4.2(1)</td>
+            <td>List of full time teachers with Ph.D. / SLET with their e-copies of Ph.D. / SLET in A.Y 2023-24</td>
+          </tr>
+          <tr class="row-blue">
+            <td>9</td><td>2.6.3</td><td>2.6.3(1)</td>
+            <td>Result sheet published by the University for the A.Y 2023-24</td>
+          </tr>
+
+          <!-- Criterion 3 -->
+          <tr class="row-orange">
+            <td>10</td><td>3.2.2</td><td>3.2.2(1)</td>
+            <td>Documents related to Seminars / Workshops organized during the A.Y 2023-24</td>
+          </tr>
+          <tr class="row-orange">
+            <td>11</td><td>3.3.2</td><td>3.3.2</td>
+            <td>e-copies of first page, content page and participation of conferences during the assessment period</td>
+          </tr>
+          <tr class="row-orange">
+            <td>12</td><td>3.4.1</td><td>3.4.1</td>
+            <td>List of extension activities for A.Y 2023-24</td>
+          </tr>
+          <tr class="row-orange">
+            <td>13</td><td>3.4.2</td><td>3.4.2</td>
+            <td>e-copies of recognition letter for extension activities for A.Y 2023-24</td>
+          </tr>
+          <tr class="row-orange">
+            <td>14</td><td>3.4.3</td><td>3.4.3(1)</td>
+            <td>Documents related to organized extension activities during A.Y 2023-24</td>
+          </tr>
+          <tr class="row-orange">
+            <td>15</td><td>3.5.1</td><td>3.5.1(1)</td>
+            <td>e-copies of MoUs established in A.Y 2023-24</td>
+          </tr>
+
+          <!-- Criterion 4 -->
+          <tr class="row-blue">
+            <td rowspan="3">16</td><td rowspan="3">4.3.2</td><td>4.3.2(1)</td><td>Student-Computer Ratio</td>
+          </tr>
+          <tr class="row-blue"><td>4.3.2(2)</td><td>Invoices of the Computers</td></tr>
+          <tr class="row-blue"><td>4.3.2(3)</td><td>Stock Register Entry</td></tr>
+
+          <!-- Criterion 5 -->
+          <tr class="row-orange">
+            <td rowspan="2">17</td><td rowspan="2">5.1.1</td><td>5.1.1(1)</td>
+            <td>Sanction letters and list of students benefited by Government in A.Y 2023-24</td>
+          </tr>
+          <tr class="row-orange"><td>5.1.1(7)</td><td>List of students benefitted by Institutional Freeships for A.Y 2023-24</td></tr>
+          <tr class="row-orange">
+            <td rowspan="5">18</td><td rowspan="5">5.1.2</td><td>5.1.2(1)</td><td>Documents related to organised softskills programmes for A.Y 2023-24</td>
+          </tr>
+          <tr class="row-orange"><td>5.1.2(2)</td><td>Documents related to organised language and communication skills for A.Y 2023-24</td></tr>
+          <tr class="row-orange"><td>5.1.2(3)</td><td>Documents related to organised lifeskills programmes for A.Y 2023-24</td></tr>
+          <tr class="row-orange"><td>5.1.2(4)</td><td>Documents related to organised ICT/Communication skills programmes for A.Y 2023-24</td></tr>
+          <tr class="row-orange"><td>5.1.2(5)</td><td>Institutional Weblink</td></tr>
+          <tr class="row-orange">
+            <td>19</td><td>5.1.3</td><td>5.1.3(1)</td>
+            <td>Documents related to guidance for competitive examinations and career counselling during A.Y 2023-24</td>
+          </tr>
+          <tr class="row-orange">
+            <td rowspan="5">20</td><td rowspan="5">5.1.4</td><td>5.1.4(1)</td><td>Minutes of Anti Ragging Committee</td>
+          </tr>
+          <tr class="row-orange"><td>5.1.4(2)</td><td>Minutes of Women Empowerment Grievance Redressal Committee</td></tr>
+          <tr class="row-orange"><td>5.1.4(3)</td><td>Grievance Redressal Cell</td></tr>
+          <tr class="row-orange"><td>5.1.4(4)</td><td>Sample filled undertaking forms</td></tr>
+          <tr class="row-orange"><td>5.1.4(5)</td><td>Weblink for online grievance cell</td></tr>
+          <tr class="row-orange">
+            <td>21</td><td>5.2.1</td><td>5.2.1(1)</td>
+            <td>Offer letters of the placed students and admission letters of students enrolled in higher education during A.Y 2023-24</td>
+          </tr>
+          <tr class="row-orange">
+            <td>22</td><td>5.2.2</td><td>5.2.2(1)</td>
+            <td>List of students with e-copies of qualifying certificates in A.Y 2023-24</td>
+          </tr>
+          <tr class="row-orange">
+            <td>23</td><td>5.3.1</td><td>5.3.1(1)</td>
+            <td>e-copies of merit certificates in sports and culturals during A.Y 2023-24</td>
+          </tr>
+          <tr class="row-orange">
+            <td>24</td><td>5.3.2</td><td>5.3.2(1)</td>
+            <td>Documents related to sports and cultural competitions organised in the institution and e-copies of participation certificates in other institutions in A.Y 2023-24</td>
+          </tr>
+
+          <!-- Criterion 6 -->
+          <tr class="row-blue">
+            <td rowspan="5">25</td><td rowspan="5">6.2.2</td><td>6.2.2(1)</td><td>Policy on E-governance</td>
+          </tr>
+          <tr class="row-blue"><td>6.2.2(2)</td><td>Invoices</td></tr>
+          <tr class="row-blue"><td>6.2.2(3)</td><td>Screenshots</td></tr>
+          <tr class="row-blue"><td>6.2.2(4)</td><td>ERP Document</td></tr>
+          <tr class="row-blue"><td>6.2.2(5)</td><td>Annual Report</td></tr>
+          <tr class="row-blue">
+            <td rowspan="3">26</td><td rowspan="3">6.3.2</td><td>6.3.2(1)</td><td>Policy Document</td>
+          </tr>
+          <tr class="row-blue"><td>6.3.2(2)</td><td>List of Fulltime Teachers benefited by Financial Support with their Sanction Letters A.Y 2023-24</td></tr>
+          <tr class="row-blue"><td>6.3.2(7)</td><td>Audited Statements</td></tr>
+          <tr class="row-blue">
+            <td rowspan="2">27</td><td rowspan="2">6.3.3</td><td>6.3.3(1)</td>
+            <td>Organised Professional Development Programmes for Teachers and Administrative Training Programme for Non-Teaching along with their e-copies of Participation A.Y 2023-24</td>
+          </tr>
+          <tr class="row-blue"><td>6.3.3(6)</td><td>Annual Report</td></tr>
+          <tr class="row-blue">
+            <td rowspan="5">28</td><td rowspan="5">6.5.2</td><td>6.5.2(1)</td><td>Minutes of IQAC</td>
+          </tr>
+          <tr class="row-blue"><td>6.5.2(2)</td><td>Feedback Collected, Analysis and Action Taken Report</td></tr>
+          <tr class="row-blue"><td>6.5.2(3)</td><td>e-copies of Collaborations with other Institutions</td></tr>
+          <tr class="row-blue"><td>6.5.2(4)</td><td>List of Collaborative activities with other Institutions</td></tr>
+          <tr class="row-blue"><td>6.5.2(5)</td><td>ISO Certificate</td></tr>
+
+          <!-- Criterion 7 -->
+          <tr class="row-orange">
+            <td rowspan="6">29</td><td rowspan="6">7.1.2</td><td>7.1.2(1)</td><td>Geo-Tagged Photographs</td>
+          </tr>
+          <tr class="row-orange"><td>7.1.2(2)</td><td>Invoices</td></tr>
+          <tr class="row-orange"><td>7.1.2(3)</td><td>MoUs for Solid and e-Waste Management</td></tr>
+          <tr class="row-orange"><td>7.1.2(4)</td><td>Circulars for No Entry of Automobiles and Ban on Use of Plastic</td></tr>
+          <tr class="row-orange"><td>7.1.2(5)</td><td>Scribe Letters</td></tr>
+          <tr class="row-orange"><td>7.1.2(6)</td><td>Policy Documents</td></tr>
+          <tr class="row-orange">
+            <td rowspan="7">30</td><td rowspan="7">7.1.3</td><td>7.1.3(1)</td><td>Policy for Energy Utilization and Environment</td>
+          </tr>
+          <tr class="row-orange"><td>7.1.3(2)</td><td>Green Audit Report</td></tr>
+          <tr class="row-orange"><td>7.1.3(3)</td><td>Environment Audit Report</td></tr>
+          <tr class="row-orange"><td>7.1.3(4)</td><td>Energy Audit Report</td></tr>
+          <tr class="row-orange"><td>7.1.3(5)</td><td>Document Related to Clean and Green Campus Initiatives</td></tr>
+          <tr class="row-orange"><td>7.1.3(6)</td><td>Report on Green Campus Initiatives</td></tr>
+          <tr class="row-orange"><td>7.1.3(7)</td><td>Document related to Environment Promotion Activities beyond Campus</td></tr>
+
+        </tbody>
+      </table>
+    </div>
+    `
+  }
+};
+
+app.get('/naac/:page', (req, res) => {
+  const page = naacPages[req.params.page];
+  if (!page) {
+    return res.status(404).send('Page not found');
+  }
+  res.render('about-page', {
+    pageTitle: page.title,
+    content: page.content,
+    parentLabel: page.parentLabel || 'NAAC',
+    parentUrl: '#'
+  });
+});
 
 app.listen(3000, () => {
   console.log("Server running at http://localhost:3000");
