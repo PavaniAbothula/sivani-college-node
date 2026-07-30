@@ -2951,6 +2951,75 @@ app.get('/naac/:page', (req, res) => {
   });
 });
 
+
+const informationCornerPages = {
+  'rti': {
+    title: 'RTI',
+    content: `
+      <h3 class="section-heading-underline">Statutory declaration under the RTI act 2005</h3>
+
+      <p class="college-para">
+        Section 4 (1) (b) of ACT 2005 covers the statutory declaration of <strong>SRI SIVANI COLLEGE OF PHARMACY</strong>, N.H-16, Chilakapalem Jn, Etcherla Mandal, Srikakulam Dist -532402.
+      </p>
+
+      <p class="college-para">
+        <strong>Website:</strong>srisivanisscp.com/Our college is approved by PCI recognized by Directorate of Technical Education of Govt of Andhra Pradesh and Affiliated to Jawaharlal Nehru Technological University, Gurajada, Vizianagaram. The college has a Governing Council and College Development as per the provisions. It runs as per the rules and regulations stipulated by Government of Andhra Pradesh from time to time. The college comes under "Private - Self Financing" category and therefore financial transactions are audited by the private auditors. The college has different bodies to maintain all types of discipline in the campus. The applications under the RTI act along with postal order/demand draft for Rs.10.00 obtained in favor of principal, SRI SIVANI COLLEGE OF PHARMACY, may be sent to the Public Information Officer (PIO) or handed over in his/her office, for any information required. All information about the college is open for the public and it can be obtained by a citizen of India.
+      </p>
+
+      <h3 class="section-heading-underline">Names, Designations and other particulars of public information officers</h3>
+
+      <div class="data-table-wrapper">
+        <table class="data-table">
+          <thead>
+            <tr>
+              <th>SI</th>
+              <th>Name</th>
+              <th>Designation</th>
+              <th>Contact Details</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>1.</td>
+              <td>Dr. K Rajkiran</td>
+              <td>Appellate Information Officer</td>
+              <td>7382651422</td>
+            </tr>
+            <tr>
+              <td>2.</td>
+              <td>Mr.G.Manoj Kumar</td>
+              <td>Public Information Officer</td>
+              <td>7013969337</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="pdf-card" style="margin-top: 25px;">
+        <div class="pdf-card-label">RTI</div>
+        <a href="/assets/pdfs/rti.pdf" target="_blank" class="pdf-card-view">
+          <i class="bi bi-file-earmark-text"></i>
+        </a>
+      </div>
+    `
+  }
+};
+
+app.get('/information-corner/:page', (req, res) => {
+  const page = informationCornerPages[req.params.page];
+  if (!page) {
+    return res.status(404).send('Page not found');
+  }
+  res.render('about-page', {
+    pageTitle: page.title,
+    content: page.content,
+    parentLabel: 'Information Corner',
+    parentUrl: '/information-corner/rti'
+  });
+});
+
+
+
 app.listen(3000, () => {
   console.log("Server running at http://localhost:3000");
 });
