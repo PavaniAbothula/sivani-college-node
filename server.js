@@ -4728,6 +4728,171 @@ app.get('/garden', (req, res) => {
 });
 
 
+const downloadsPages = {
+  'aishe': { 
+    title: 'AISHE', 
+    content: `
+      <p><strong>SRI SIVANI COLLEGE OF PHARMACY</strong></p>
+      <p><strong>SURVEY YEAR</strong> &nbsp; <a href="/downloads/aishe/survey-2023-24.pdf" target="_blank">2023-24</a></p>
+
+      <table class="download-table">
+        <tr>
+          <td>DCF-1</td>
+          <td>
+            <a href="/downloads/aishe/dcf-1.pdf" target="_blank" class="download-icon-btn" title="Download DCF-1">
+              <i class="bi bi-file-earmark-pdf"></i>
+            </a>
+          </td>
+        </tr>
+        <tr>
+          <td>DCF-2</td>
+          <td>
+            <a href="/downloads/aishe/dcf-2.pdf" target="_blank" class="download-icon-btn" title="Download DCF-2">
+              <i class="bi bi-file-earmark-pdf"></i>
+            </a>
+          </td>
+        </tr>
+        <tr>
+          <td>DCF-3</td>
+          <td>
+            <a href="/downloads/aishe/dcf-3.pdf" target="_blank" class="download-icon-btn" title="Download DCF-3">
+              <i class="bi bi-file-earmark-pdf"></i>
+            </a>
+          </td>
+        </tr>
+        <tr>
+          <td>DCF-4</td>
+          <td>
+            <a href="/downloads/aishe/dcf-4.pdf" target="_blank" class="download-icon-btn" title="Download DCF-4">
+              <i class="bi bi-file-earmark-pdf"></i>
+            </a>
+          </td>
+        </tr>
+      </table>
+    `
+  },
+  'pci': { 
+    title: 'PCI Approvals', 
+    content: `
+      <p><strong>SRI SIVANI COLLEGE OF PHARMACY</strong></p>
+
+      <table class="pci-links-table">
+        <tr>
+          <td class="pci-link-blue">PCI APPROVAL 2024-25</td>
+          <td><a href="/downloads/pci/approval-2024-25.pdf" target="_blank" class="view-link">VIEW</a></td>
+        </tr>
+        <tr>
+          <td class="pci-link-red">PCI APPROVAL 2023-24</td>
+          <td><a href="/downloads/pci/approval-2023-24.pdf" target="_blank" class="view-link">VIEW</a></td>
+        </tr>
+        <tr>
+          <td class="pci-link-purple">Previous approval</td>
+          <td><a href="/downloads/pci/previous-approval.pdf" target="_blank" class="view-link">VIEW</a></td>
+        </tr>
+      </table>
+
+      <table class="download-table">
+        <tr>
+          <td>OLD APPROVAL-1</td>
+          <td>
+            <a href="/downloads/pci/old-approval-1.pdf" target="_blank" class="download-icon-btn" title="Download Old Approval 1">
+              <i class="bi bi-file-earmark-pdf"></i>
+            </a>
+          </td>
+        </tr>
+        <tr>
+          <td>OLD APPROVAL-2</td>
+          <td>
+            <a href="/downloads/pci/old-approval-2.pdf" target="_blank" class="download-icon-btn" title="Download Old Approval 2">
+              <i class="bi bi-file-earmark-pdf"></i>
+            </a>
+          </td>
+        </tr>
+        <tr>
+          <td>OLD APPROVAL-3</td>
+          <td>
+            <a href="/downloads/pci/old-approval-3.pdf" target="_blank" class="download-icon-btn" title="Download Old Approval 3">
+              <i class="bi bi-file-earmark-pdf"></i>
+            </a>
+          </td>
+        </tr>
+      </table>
+    `
+  },
+  'jntu-gv': { 
+    title: 'JNTU GV Approvals', 
+    content: `
+      <p><strong>JNTU-GV</strong></p>
+
+      <table class="download-table">
+        <tr>
+          <td>JNTU GV 2023-24 APPROVAL</td>
+          <td>
+            <a href="/downloads/jntu-gv/approval-2023-24.pdf" target="_blank" class="download-icon-btn" title="Download JNTU GV 2023-24 Approval">
+              <i class="bi bi-file-earmark-pdf"></i>
+            </a>
+          </td>
+        </tr>
+        <tr>
+          <td>JNTU GV 2022-23 APPROVAL</td>
+          <td>
+            <a href="/downloads/jntu-gv/approval-2022-23.pdf" target="_blank" class="download-icon-btn" title="Download JNTU GV 2022-23 Approval">
+              <i class="bi bi-file-earmark-pdf"></i>
+            </a>
+          </td>
+        </tr>
+        <tr>
+          <td>COLLEGE STARTING APPROVAL</td>
+          <td>
+            <a href="/downloads/jntu-gv/college-starting-approval.pdf" target="_blank" class="download-icon-btn" title="Download College Starting Approval">
+              <i class="bi bi-file-earmark-pdf"></i>
+            </a>
+          </td>
+        </tr>
+      </table>
+    `
+  },
+  'aicte': { title: 'AICTE', content: `<h3 class="vision-heading">Under Process</h3>` },
+  'nirf-2025': { 
+    title: 'SRI SIVANI COLLEGE OF PHARMACY NIRF 2025', 
+    content: `
+      <p><strong>NIRF</strong></p>
+
+      <table class="download-table">
+        <tr>
+          <td>NIRF 2025</td>
+          <td>
+            <a href="/downloads/nirf/nirf-2025.pdf" target="_blank" class="download-icon-btn" title="Download NIRF 2025">
+              <i class="bi bi-file-earmark-pdf"></i>
+            </a>
+          </td>
+        </tr>
+        <tr>
+          <td>NIRF 2025 OVER ALL</td>
+          <td>
+            <a href="/downloads/nirf/nirf-2025-overall.pdf" target="_blank" class="download-icon-btn" title="Download NIRF 2025 Overall">
+              <i class="bi bi-file-earmark-pdf"></i>
+            </a>
+          </td>
+        </tr>
+      </table>
+    `
+  },
+};
+
+app.get('/downloads/:page', (req, res) => {
+  const page = downloadsPages[req.params.page];
+  if (!page) {
+    return res.status(404).send('Page not found');
+  }
+  res.render('about-page', {
+    pageTitle: page.title,
+    content: page.content,
+    parentLabel: 'Downloads',
+    parentUrl: '#'
+  });
+});
+
 
 app.listen(3000, () => {
   console.log("Server running at http://localhost:3000");
