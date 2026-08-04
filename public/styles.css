@@ -137,43 +137,92 @@ body {
   filter: drop-shadow(0px 2px 4px rgba(0,0,0,0.15));
 }
  /* Navbar / Navigation Bar Styling */
+/* Navbar / Navigation Bar Styling */
 .custom-navbar {
   background-color: var(--nav-bg);
-  padding: 10px 15px;
+  padding: 0 20px;
   position: sticky;
   top: 0;
   z-index: 1000;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.12);
 }
+
 .nav-links-container {
   display: flex;
   flex-direction: column;
-  gap: 12px;
-  max-width: 100%;
+  max-width: 1440px;
+  margin: 0 auto;
+  width: 100%;
 }
+
 .nav-row {
   display: flex;
-  flex-wrap: wrap;
-  justify-content: flex-start;
   align-items: center;
-  row-gap: 8px;
+  justify-content: space-between;
+  width: 100%;
+  flex-wrap: nowrap;
 }
+
+.nav-row:first-child {
+  border-bottom: 1px solid rgba(255, 255, 255, 0.15);
+}
+
 .nav-link-item {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 5px;
+  color: rgba(255, 255, 255, 0.95);
+  text-decoration: none;
+  font-size: 13px;
+  font-weight: 600;
+  letter-spacing: 0.2px;
+  padding: 13px 8px;
+  line-height: 1;
+  white-space: nowrap;
+  cursor: pointer;
+  transition: background-color 0.18s ease, color 0.18s ease;
+}
+
+.nav-dropdown {
+  display: flex;
+}
+
+.nav-link-item:hover,
+.nav-link-item:focus {
+  background-color: rgba(0, 0, 0, 0.15);
   color: #ffffff;
   text-decoration: none;
-  font-size: 13.5px;
-  font-weight: 600;
-  padding: 4px 14px;
-  border-right: 1px solid rgba(255, 255, 255, 0.25);
-  line-height: 1;
-  transition: all 0.2s ease-in-out;
 }
-.nav-link-item:last-child {
-  border-right: none;
+
+.dropdown-arrow {
+  font-size: 9px;
+  opacity: 0.75;
+  transition: transform 0.18s ease;
 }
-.nav-link-item:hover {
-  color: var(--header-bg);
-  text-decoration: none;
+
+.nav-dropdown:hover .dropdown-arrow {
+  transform: rotate(180deg);
 }
+
+.nav-row > *:not(:last-child) {
+  border-right: 1px solid rgba(255, 255, 255, 0.18);
+}
+
+/* Safety net: if items genuinely can't fit even at natural width, wrap instead of hiding/cutting off */
+@media (max-width: 1400px) {
+  .nav-row {
+    flex-wrap: wrap;
+    justify-content: flex-start;
+    row-gap: 4px;
+  }
+}
+
+@media (max-width: 992px) {
+  .custom-navbar { padding: 0 10px; }
+  .nav-link-item { padding: 10px 10px; font-size: 12.5px; }
+}
+
 /* Main Content Area */
 .main-content {
   padding: 25px;
